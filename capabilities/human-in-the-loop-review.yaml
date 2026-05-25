@@ -1,0 +1,45 @@
+name: Human-in-the-Loop Review
+description: >-
+  Kick off a crew, wait for a task to pause for human review, surface the
+  pending output to a reviewer, then forward the approve/retry decision back
+  to AMP via the /resume endpoint.
+inputs:
+  crewName:
+    required: true
+  crewInputs:
+    required: true
+  reviewer:
+    description: Identifier of the human reviewer routing target.
+    required: true
+steps:
+  - id: kickoff
+    capability: crewai-amp-rest-api
+    operation: kickoffCrew
+    input:
+      body:
+        inputs: '{{ crewInputs }}'
+        taskWebhookUrl: '{{ env.HITL_TASK_WEBHOOK }}'
+  - id: wait-for-hitl
+    description: Wait until a task event reports awaiting_human_feedback.
+    waitFor:
+      webhook: task
+      match:
+        status: awaiting_human_feedback
+        kickoff_id: '{{ steps.kickoff.kickoff_id }}'
+    output:
+      task_id: $.task_id
+      pending_output: $.output
+  - id: route-to-reviewer
+    description: Route pending output to the human reviewer and capture decision.
+    output:
+      is_approve: '{{ reviewer.decision.approved }}'
+      human_feedback: '{{ reviewer.decision.feedback }}'
+  - id: resume
+    capability: crewai-amp-rest-api
+    operation: resumeKickoff
+    input:
+      body:
+        execution_id: '{{ steps.kickoff.kickoff_id }}'
+        task_id: '{{ steps.wait-for-hitl.task_id }}'
+        human_feedback: '{{ steps.route-to-reviewer.human_feedback }}'
+        is_approve: '{{ steps.route-to-reviewer.is_approve }}'

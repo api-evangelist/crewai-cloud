@@ -1,0 +1,30 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://research-crew.crewai.com/kickoff",
+    "headers": {
+      "Authorization": "Bearer sk-amp-org-...",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "inputs": {
+        "topic": "Open banking regulation in Brazil",
+        "target_audience": "Banking executives",
+        "depth": "deep"
+      },
+      "meta": {
+        "requestId": "7a2c-9f1b",
+        "tenant": "acme-financial"
+      },
+      "taskWebhookUrl": "https://hooks.acme.com/crewai/task",
+      "stepWebhookUrl": "https://hooks.acme.com/crewai/step",
+      "crewWebhookUrl": "https://hooks.acme.com/crewai/crew"
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "kickoff_id": "abcd1234-5678-90ef-ghij-klmnopqrstuv"
+    }
+  }
+}

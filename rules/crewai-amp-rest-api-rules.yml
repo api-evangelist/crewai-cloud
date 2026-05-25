@@ -1,0 +1,81 @@
+extends: spectral:oas
+rules:
+  crewai-amp-info-contact:
+    description: Info object must include contact and license.
+    given: $.info
+    severity: warn
+    then:
+      - field: contact
+        function: truthy
+      - field: license
+        function: truthy
+
+  crewai-amp-bearer-only:
+    description: All operations must require bearer authentication.
+    given: $.paths[*][*]
+    severity: error
+    then:
+      field: security
+      function: truthy
+
+  crewai-amp-operation-summary-title-case:
+    description: Operation summaries should be Title Case.
+    given: $.paths[*][*].summary
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        match: '^([A-Z][A-Za-z0-9]*)(\s[A-Z][A-Za-z0-9]*)*(\s[A-Z][A-Za-z0-9]*)?$'
+
+  crewai-amp-operation-id-required:
+    description: Every operation must declare an operationId.
+    given: $.paths[*][*]
+    severity: error
+    then:
+      field: operationId
+      function: truthy
+
+  crewai-amp-uuid-path-params:
+    description: kickoff_id path parameter must be a UUID.
+    given: $.paths[*].*.parameters[?(@.name == 'kickoff_id')]
+    severity: error
+    then:
+      - field: schema.type
+        function: pattern
+        functionOptions:
+          match: '^string$'
+      - field: schema.format
+        function: pattern
+        functionOptions:
+          match: '^uuid$'
+
+  crewai-amp-webhook-url-fields:
+    description: Webhook URL fields on kickoff/resume must be uri-format strings.
+    given: '$.components.schemas[?(@property === "KickoffRequest" || @property === "ResumeRequest")].properties[?(@property === "taskWebhookUrl" || @property === "stepWebhookUrl" || @property === "crewWebhookUrl")]'
+    severity: warn
+    then:
+      - field: type
+        function: pattern
+        functionOptions:
+          match: '^string$'
+      - field: format
+        function: pattern
+        functionOptions:
+          match: '^uri$'
+
+  crewai-amp-status-enum:
+    description: Status responses must use the documented enum values.
+    given: '$.components.schemas[?(@property === "StatusRunning" || @property === "StatusCompleted" || @property === "StatusError")].properties.status.enum'
+    severity: error
+    then:
+      function: truthy
+
+  crewai-amp-no-trailing-slash:
+    description: Paths must not have trailing slashes.
+    given: $.paths
+    severity: warn
+    then:
+      function: pattern
+      functionOptions:
+        notMatch: '/$'
+      field: '@key'

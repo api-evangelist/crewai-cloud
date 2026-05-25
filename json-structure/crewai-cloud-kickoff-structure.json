@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-structure.org/2026/draft/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/crewai-cloud/main/json-structure/crewai-cloud-kickoff-structure.json",
+  "title": "CrewAI AMP Kickoff Structure",
+  "description": "Operational structure for kicking off a crew on CrewAI AMP.",
+  "type": "object",
+  "fields": {
+    "inputs": {
+      "type": "object",
+      "description": "Crew-specific input parameters.",
+      "operational_role": "PrimaryInput"
+    },
+    "meta": {
+      "type": "object",
+      "description": "Caller-controlled metadata echoed into webhook events.",
+      "operational_role": "Metadata"
+    },
+    "webhooks": {
+      "type": "object",
+      "description": "Per-kickoff webhook callback URLs.",
+      "operational_role": "EventRouting",
+      "fields": {
+        "task": { "type": "string", "format": "uri" },
+        "step": { "type": "string", "format": "uri" },
+        "crew": { "type": "string", "format": "uri" }
+      }
+    },
+    "kickoff_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier issued by AMP after a successful kickoff.",
+      "operational_role": "Correlation"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["queued", "running", "awaiting_human_feedback", "completed", "error"],
+      "description": "Lifecycle state of the kickoff.",
+      "operational_role": "Lifecycle"
+    }
+  }
+}

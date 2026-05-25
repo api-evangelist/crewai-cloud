@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/crewai-cloud/main/json-schema/crewai-cloud-resume-schema.json",
+  "title": "CrewAI AMP Resume Request",
+  "description": "Request payload for POST /resume — human-in-the-loop feedback on a paused task.",
+  "type": "object",
+  "required": ["execution_id", "task_id", "human_feedback", "is_approve"],
+  "properties": {
+    "execution_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The kickoff_id returned by /kickoff."
+    },
+    "task_id": {
+      "type": "string",
+      "description": "Identifier of the task awaiting human feedback."
+    },
+    "human_feedback": {
+      "type": "string",
+      "description": "Feedback incorporated as additional context."
+    },
+    "is_approve": {
+      "type": "boolean",
+      "description": "true to proceed; false to retry the task with the feedback."
+    },
+    "taskWebhookUrl": { "type": "string", "format": "uri" },
+    "stepWebhookUrl": { "type": "string", "format": "uri" },
+    "crewWebhookUrl": { "type": "string", "format": "uri" }
+  },
+  "additionalProperties": false
+}

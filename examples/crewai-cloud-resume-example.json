@@ -1,0 +1,23 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "https://research-crew.crewai.com/resume",
+    "headers": {
+      "Authorization": "Bearer sk-amp-org-...",
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "execution_id": "abcd1234-5678-90ef-ghij-klmnopqrstuv",
+      "task_id": "t-3",
+      "human_feedback": "Tone is too informal — rewrite in a more executive register and add the 30-day rollout milestone table.",
+      "is_approve": false
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "status": "retrying",
+      "message": "Task t-3 will be retried with provided feedback"
+    }
+  }
+}

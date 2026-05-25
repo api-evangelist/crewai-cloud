@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/crewai-cloud/main/json-schema/crewai-cloud-status-schema.json",
+  "title": "CrewAI AMP Kickoff Status",
+  "description": "Response payload for GET /status/{kickoff_id} on a CrewAI AMP per-crew endpoint.",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": { "const": "running" },
+        "current_task": { "type": "string" },
+        "progress": {
+          "type": "object",
+          "properties": {
+            "completed_tasks": { "type": "integer", "minimum": 0 },
+            "total_tasks": { "type": "integer", "minimum": 0 }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": { "const": "completed" },
+        "execution_time": { "type": "number" },
+        "result": {
+          "type": "object",
+          "properties": {
+            "output": { "type": "string" },
+            "tasks": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "task_id": { "type": "string" },
+                  "agent": { "type": "string" },
+                  "output": { "type": "string" },
+                  "execution_time": { "type": "number" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "type": "object",
+      "required": ["status"],
+      "properties": {
+        "status": { "const": "error" },
+        "error": { "type": "string" },
+        "execution_time": { "type": "number" }
+      }
+    }
+  ]
+}

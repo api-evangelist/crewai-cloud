@@ -1,0 +1,184 @@
+asyncapi: 3.0.0
+info:
+  title: CrewAI AMP Webhook Streaming
+  version: '1.0'
+  description: |
+    Outbound webhook events published by CrewAI AMP during crew execution. Three callback URLs
+    can be supplied per kickoff — `taskWebhookUrl`, `stepWebhookUrl`, and `crewWebhookUrl`.
+    AMP POSTs JSON event payloads to those URLs as the crew runs.
+servers:
+  subscriber:
+    host: webhooks.example.com
+    protocol: https
+    description: Customer-hosted HTTPS endpoint receiving CrewAI AMP events.
+channels:
+  taskEvents:
+    address: '{taskWebhookUrl}'
+    description: Fires after each task completes.
+    messages:
+      taskCompleted:
+        $ref: '#/components/messages/TaskCompleted'
+    parameters:
+      taskWebhookUrl:
+        description: Subscriber-supplied URL on kickoff.
+  stepEvents:
+    address: '{stepWebhookUrl}'
+    description: Fires after each agent thought or action.
+    messages:
+      stepEvent:
+        $ref: '#/components/messages/StepEvent'
+    parameters:
+      stepWebhookUrl:
+        description: Subscriber-supplied URL on kickoff.
+  crewEvents:
+    address: '{crewWebhookUrl}'
+    description: Fires when the overall crew execution finishes.
+    messages:
+      crewCompleted:
+        $ref: '#/components/messages/CrewCompleted'
+    parameters:
+      crewWebhookUrl:
+        description: Subscriber-supplied URL on kickoff.
+operations:
+  receiveTaskEvents:
+    action: receive
+    channel:
+      $ref: '#/channels/taskEvents'
+  receiveStepEvents:
+    action: receive
+    channel:
+      $ref: '#/channels/stepEvents'
+  receiveCrewEvents:
+    action: receive
+    channel:
+      $ref: '#/channels/crewEvents'
+components:
+  messages:
+    TaskCompleted:
+      name: TaskCompleted
+      title: Task Completed
+      summary: A single task within a crew finished.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/TaskCompletedPayload'
+    StepEvent:
+      name: StepEvent
+      title: Agent Step
+      summary: An agent emitted a thought or executed an action.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/StepEventPayload'
+    CrewCompleted:
+      name: CrewCompleted
+      title: Crew Completed
+      summary: The crew execution finished (success or error).
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/CrewCompletedPayload'
+  schemas:
+    TaskCompletedPayload:
+      type: object
+      required:
+        - kickoff_id
+        - task_id
+        - status
+      properties:
+        kickoff_id:
+          type: string
+          format: uuid
+        task_id:
+          type: string
+        agent:
+          type: string
+          description: Role of the agent that ran the task.
+        status:
+          type: string
+          enum:
+            - completed
+            - error
+            - awaiting_human_feedback
+        output:
+          type: string
+        execution_time:
+          type: number
+          format: double
+        meta:
+          type: object
+          additionalProperties: true
+    StepEventPayload:
+      type: object
+      required:
+        - kickoff_id
+        - step
+      properties:
+        kickoff_id:
+          type: string
+          format: uuid
+        task_id:
+          type: string
+        agent:
+          type: string
+        step:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - thought
+                - action
+                - observation
+                - tool_call
+                - tool_result
+            content:
+              type: string
+            tool:
+              type: string
+            input:
+              type: object
+              additionalProperties: true
+            output:
+              type: string
+        timestamp:
+          type: string
+          format: date-time
+    CrewCompletedPayload:
+      type: object
+      required:
+        - kickoff_id
+        - status
+      properties:
+        kickoff_id:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum:
+            - completed
+            - error
+        result:
+          type: object
+          properties:
+            output:
+              type: string
+            tasks:
+              type: array
+              items:
+                type: object
+                properties:
+                  task_id:
+                    type: string
+                  agent:
+                    type: string
+                  output:
+                    type: string
+                  execution_time:
+                    type: number
+                    format: double
+        error:
+          type: string
+        execution_time:
+          type: number
+          format: double
+        meta:
+          type: object
+          additionalProperties: true

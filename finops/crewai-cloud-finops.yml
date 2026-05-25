@@ -1,0 +1,60 @@
+specVersion: '0.1'
+name: CrewAI Cloud (AMP) FinOps Surface
+description: >-
+  FOCUS-aligned mapping of how CrewAI AMP charges manifest in customer billing.
+  AMP's primary billable unit is the workflow execution. Enterprise contracts are
+  custom-priced and may include hosted infrastructure (AMP Cloud) or be billed
+  separately when the customer self-hosts AMP Factory on their own cloud account.
+provider: crewai-cloud
+updated: '2026-05-24'
+sources:
+  - https://www.crewai.com/pricing
+  - https://www.crewai.com/enterprise
+billingModels:
+  - id: pay-as-you-go-executions
+    name: Pay-As-You-Go Workflow Executions
+    plan: basic
+    chargeCategory: Usage
+    pricingUnit: workflow_execution
+    pricingQuantity: 1
+    listPrice: 0.50
+    currency: USD
+    description: >-
+      Basic plan: first 50 executions per month are free; additional executions
+      billed at $0.50 each.
+  - id: enterprise-subscription
+    name: Enterprise Subscription
+    plan: enterprise
+    chargeCategory: Commitment
+    pricingUnit: organization
+    pricingQuantity: 1
+    listPrice: Call
+    currency: USD
+    description: >-
+      Custom enterprise contract bundling included executions (up to 30,000/mo),
+      deployment management, SSO/RBAC, dedicated support, and 50 hours of
+      development per month. Annual term, custom price.
+focusMapping:
+  ChargePeriodStart: invoice.period_start
+  ChargePeriodEnd: invoice.period_end
+  ChargeCategory: see billingModels[].chargeCategory
+  ServiceName: CrewAI AMP
+  ServiceCategory: AI and Machine Learning
+  ProviderName: CrewAI Inc.
+  PublisherName: CrewAI Inc.
+  PricingUnit: see billingModels[].pricingUnit
+  PricingCategory: see billingModels[].chargeCategory
+  ListUnitPrice: see billingModels[].listPrice
+  BillingCurrency: USD
+  ConsumedQuantity: workflow_executions
+  ConsumedUnit: execution
+notes:
+  - AMP Factory (self-hosted) infrastructure costs (compute, storage, networking) are
+    billed directly by the underlying cloud provider (AWS, Azure, GCP) to the
+    customer, not by CrewAI. CrewAI bills only the AMP Factory license and
+    support.
+  - LLM token spend incurred by crews is billed by the underlying model provider
+    (OpenAI, Anthropic, Azure OpenAI, Vertex AI, Bedrock, etc.) to the
+    customer's own provider account, not by CrewAI.
+  - Tool integrations (Slack, Salesforce, etc.) may consume third-party API
+    quota that customers pay separately to those vendors.

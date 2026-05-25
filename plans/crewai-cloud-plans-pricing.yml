@@ -1,0 +1,66 @@
+specVersion: '0.1'
+name: CrewAI Cloud (AMP) Plans and Pricing
+description: >-
+  Commercial plans for CrewAI AMP (Cloud and Factory). Captured from
+  crewai.com/pricing and crewai.com/enterprise.
+provider: crewai-cloud
+source: https://www.crewai.com/pricing
+updated: '2026-05-24'
+plans:
+  - id: basic
+    name: Basic
+    type: Free
+    description: Build an agentic workflow today and see what's possible with collaborative AI agents.
+    entries:
+      - geo: Global
+        unit: 1
+        label: Workflow Executions
+        limit: 50
+        price: 0
+        metric: execution
+        timeFrame: month
+        description: 50 free workflow executions per month.
+      - geo: Global
+        unit: 1
+        label: Additional Executions
+        price: 0.50
+        metric: execution
+        timeFrame: usage
+        description: Overage pricing once the 50 monthly executions are consumed.
+    elements:
+      - name: Visual editor and AI copilot
+      - name: GitHub integration
+      - name: 50 workflow executions per month
+      - name: Pay-as-you-go overage at $0.50 per execution
+      - name: Community support
+  - id: enterprise
+    name: Enterprise
+    type: Custom
+    description: Accelerate and scale agentic AI adoption across the organization.
+    entries:
+      - geo: Global
+        unit: 1
+        label: Workflow Executions
+        limit: 30000
+        price: 0
+        metric: execution
+        timeFrame: month
+        description: Up to 30,000 free workflow executions per month included.
+      - geo: Global
+        unit: 1
+        label: Subscription
+        price: Call
+        metric: organization
+        timeFrame: year
+        description: Custom annual subscription priced per organization.
+    elements:
+      - name: Everything in Basic
+      - name: CrewAI-hosted or private-infrastructure deployment (AMP Cloud or AMP Factory on AWS / Azure / GCP)
+      - name: Up to 30,000 free workflow executions per month
+      - name: Unlimited maximum executions
+      - name: Single Sign-On with Microsoft Entra and Okta
+      - name: Role-Based Access Control
+      - name: Deployment management and onboarding
+      - name: Dedicated support including Slack/Teams
+      - name: On-site support and training
+      - name: 50 hours of development per month

@@ -1,0 +1,286 @@
+aid: crewai-cloud
+name: CrewAI Cloud
+description: >-
+  CrewAI Cloud (CrewAI AMP) is the managed Agent Management Platform for deploying, monitoring,
+  scaling, and governing CrewAI multi-agent workflows in production. AMP exposes a per-crew REST API
+  for kickoff, status, inputs, and human-in-the-loop resume operations, plus webhook streaming for
+  task, step, and crew events. The platform ships in two deployment modes — AMP Cloud (managed,
+  multi-tenant at app.crewai.com) and AMP Factory (self-hosted on AWS, Azure, or GCP) — and layers
+  RBAC, SSO, secrets manager federation (AWS/Azure/GCP), agent and tool repositories, a marketplace,
+  A2A communication, automations and triggers, traces with PII redaction, and observability exports
+  on top of the open-source CrewAI framework.
+type: Index
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - AI Agents
+  - AI Agent Platform
+  - Agent Orchestration
+  - Multi-Agent Systems
+  - Agent Management Platform
+  - Managed Agents
+  - Automations
+  - Observability
+  - Human In The Loop
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/crewai-cloud/refs/heads/main/apis.yml
+created: '2026-05-24'
+modified: '2026-05-24'
+specificationVersion: '0.19'
+apis:
+  - aid: crewai-cloud:crewai-amp-rest-api
+    name: CrewAI AMP REST API
+    description: >-
+      Per-crew REST API exposed for every crew deployed to CrewAI AMP. Each deployed crew is
+      reachable at https://{crew-name}.crewai.com and exposes four operations — GET /inputs to
+      discover required input parameters, POST /kickoff to launch an execution with inputs and
+      optional task/step/crew webhook URLs (returns a kickoff_id), GET /status/{kickoff_id} to poll
+      execution status (running, completed, error) and retrieve per-task results, and POST /resume
+      to deliver human feedback (approve or retry) on a task that paused for HITL review. All
+      endpoints require Bearer token authentication using either an organization-level or
+      user-scoped token from the AMP dashboard Status tab.
+    humanURL: https://docs.crewai.com/en/api-reference/introduction
+    baseURL: https://{crew-name}.crewai.com
+    tags:
+      - AI Agents
+      - Crew Execution
+      - Kickoff
+      - Status
+      - Human In The Loop
+    properties:
+      - type: Documentation
+        url: https://docs.crewai.com/en/api-reference/introduction
+      - type: Documentation
+        url: https://docs.crewai.com/en/api-reference/inputs
+      - type: Documentation
+        url: https://docs.crewai.com/en/api-reference/kickoff
+      - type: Documentation
+        url: https://docs.crewai.com/en/api-reference/status
+      - type: Documentation
+        url: https://docs.crewai.com/en/api-reference/resume
+      - type: Documentation
+        url: https://docs.crewai.com/en/enterprise/guides/kickoff-crew
+      - type: Authentication
+        url: https://docs.crewai.com/en/api-reference/introduction
+      - type: OpenAPI
+        url: openapi/crewai-amp-rest-api-openapi.yml
+  - aid: crewai-cloud:crewai-amp-webhook-streaming
+    name: CrewAI AMP Webhook Streaming
+    description: >-
+      Outbound event streaming for AMP crew executions. When you kick off a crew you can supply
+      three callback URLs — taskWebhookUrl (fired after each task completes), stepWebhookUrl (fired
+      after each agent thought/action), and crewWebhookUrl (fired when the overall crew run
+      finishes). AMP POSTs JSON event payloads to those URLs so your systems can react to agent
+      progress in real time, log traces externally, or chain follow-on automations.
+    humanURL: https://docs.crewai.com/en/enterprise/features/webhook-streaming
+    tags:
+      - Webhooks
+      - Event Streaming
+      - Observability
+    properties:
+      - type: Documentation
+        url: https://docs.crewai.com/en/enterprise/features/webhook-streaming
+      - type: Documentation
+        url: https://docs.crewai.com/en/enterprise/guides/webhook-automation
+      - type: AsyncAPI
+        url: asyncapi/crewai-amp-webhooks-asyncapi.yml
+  - aid: crewai-cloud:crewai-enterprise-mcp-server
+    name: CrewAI Enterprise MCP Server
+    description: >-
+      Model Context Protocol server published by CrewAI Inc. that exposes AMP crew deployment
+      operations and status tracking to MCP-compatible agents and IDEs. Lets Claude, Cursor, and
+      other MCP clients list, deploy, and inspect AMP crews via the MCP standard rather than the
+      raw REST surface.
+    humanURL: https://github.com/crewAIInc/enterprise-mcp-server
+    tags:
+      - MCP
+      - Model Context Protocol
+      - Agents
+      - Deployment
+    properties:
+      - type: GitHub
+        url: https://github.com/crewAIInc/enterprise-mcp-server
+      - type: Documentation
+        url: https://docs.crewai.com/en/enterprise/guides/custom-mcp-server
+common:
+  - type: Website
+    url: https://www.crewai.com
+  - type: Portal
+    url: https://www.crewai.com/enterprise
+  - type: SignUp
+    url: https://app.crewai.com
+  - type: Console
+    url: https://app.crewai.com
+  - type: Documentation
+    url: https://docs.crewai.com/en/enterprise/introduction
+  - type: Documentation
+    url: https://docs.crewai.com/
+  - type: LLMsTxt
+    url: https://docs.crewai.com/llms.txt
+  - type: GettingStarted
+    url: https://docs.crewai.com/en/enterprise/guides/deploy-to-amp
+  - type: APIReference
+    url: https://docs.crewai.com/en/api-reference/introduction
+  - type: Authentication
+    url: https://docs.crewai.com/en/api-reference/introduction
+  - type: Webhooks
+    url: https://docs.crewai.com/en/enterprise/features/webhook-streaming
+  - type: SDK
+    name: CrewAI Python Framework
+    url: https://github.com/crewAIInc/crewai
+  - type: SDK
+    name: CrewAI Tools
+    url: https://github.com/crewAIInc/crewai-tools
+  - type: CLI
+    name: CrewAI CLI
+    url: https://docs.crewai.com/en/concepts/cli
+  - type: Tool
+    name: Crew Studio (Visual Editor)
+    url: https://docs.crewai.com/en/enterprise/features/crew-studio
+  - type: Tool
+    name: CrewAI Enterprise MCP Server
+    url: https://github.com/crewAIInc/enterprise-mcp-server
+  - type: GitHubOrganization
+    url: https://github.com/crewAIInc
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/crewai-inc
+  - type: Blog
+    url: https://blog.crewai.com
+  - type: Forum
+    url: https://community.crewai.com
+  - type: StatusPage
+    url: https://status.crewai.com
+  - type: TermsOfService
+    url: https://www.crewai.com/legal/terms-of-use
+  - type: PrivacyPolicy
+    url: https://www.crewai.com/legal/privacy-notice
+  - type: TrustCenter
+    url: https://www.crewai.com/trust
+  - type: ChangeLog
+    url: https://docs.crewai.com/en/release-notes
+  - type: Plans
+    url: https://www.crewai.com/pricing
+  - type: Pricing
+    url: https://www.crewai.com/pricing
+  - type: SecurityAndCompliance
+    url: https://www.crewai.com/trust
+  - type: Integrations
+    url: https://docs.crewai.com/en/enterprise/integrations
+  - type: Documentation
+    name: Single Sign-On (SSO)
+    url: https://docs.crewai.com/en/enterprise/features/sso
+  - type: Documentation
+    name: Role-Based Access Control
+    url: https://docs.crewai.com/en/enterprise/features/rbac
+  - type: Documentation
+    name: Secrets Manager Overview
+    url: https://docs.crewai.com/en/enterprise/features/secrets-manager/overview
+  - type: Documentation
+    name: AWS Secrets Manager
+    url: https://docs.crewai.com/en/enterprise/features/secrets-manager/aws
+  - type: Documentation
+    name: AWS Workload Identity Federation
+    url: https://docs.crewai.com/en/enterprise/features/secrets-manager/aws-workload-identity
+  - type: Documentation
+    name: Azure Key Vault
+    url: https://docs.crewai.com/en/enterprise/features/secrets-manager/azure
+  - type: Documentation
+    name: Azure Workload Identity Federation
+    url: https://docs.crewai.com/en/enterprise/features/secrets-manager/azure-workload-identity
+  - type: Documentation
+    name: Google Cloud Secret Manager
+    url: https://docs.crewai.com/en/enterprise/features/secrets-manager/gcp
+  - type: Documentation
+    name: GCP Workload Identity Federation
+    url: https://docs.crewai.com/en/enterprise/features/secrets-manager/gcp-workload-identity
+  - type: Documentation
+    name: Traces
+    url: https://docs.crewai.com/en/enterprise/features/traces
+  - type: Documentation
+    name: PII Redaction for Traces
+    url: https://docs.crewai.com/en/enterprise/features/pii-trace-redactions
+  - type: Documentation
+    name: Hallucination Guardrail
+    url: https://docs.crewai.com/en/enterprise/features/hallucination-guardrail
+  - type: Documentation
+    name: OpenTelemetry Export
+    url: https://docs.crewai.com/en/enterprise/guides/capture_telemetry_logs
+  - type: Documentation
+    name: Automations
+    url: https://docs.crewai.com/en/enterprise/features/automations
+  - type: Documentation
+    name: Triggers
+    url: https://docs.crewai.com/en/enterprise/guides/automation-triggers
+  - type: Documentation
+    name: Flow HITL Management
+    url: https://docs.crewai.com/en/enterprise/features/flow-hitl-management
+  - type: Documentation
+    name: Agent Repositories
+    url: https://docs.crewai.com/en/enterprise/features/agent-repositories
+  - type: Documentation
+    name: Marketplace
+    url: https://docs.crewai.com/en/enterprise/features/marketplace
+  - type: Documentation
+    name: A2A on AMP
+    url: https://docs.crewai.com/en/enterprise/features/a2a
+  - type: Documentation
+    name: Tool Repository
+    url: https://docs.crewai.com/en/enterprise/guides/tool-repository
+  - type: Documentation
+    name: Custom MCP Servers
+    url: https://docs.crewai.com/en/enterprise/guides/custom-mcp-server
+  - type: Documentation
+    name: Production Architecture
+    url: https://docs.crewai.com/en/concepts/production-architecture
+  - type: Documentation
+    name: FAQs
+    url: https://docs.crewai.com/en/enterprise/resources/frequently-asked-questions
+  - type: Plans
+    url: plans/crewai-cloud-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/crewai-cloud-rate-limits.yml
+  - type: FinOps
+    url: finops/crewai-cloud-finops.yml
+  - type: Features
+    data:
+      - Two deployment modes — AMP Cloud (managed at app.crewai.com) and AMP Factory (self-hosted on AWS, Azure, or GCP)
+      - Per-crew REST API at https://{crew-name}.crewai.com with /inputs, /kickoff, /status/{id}, and /resume endpoints
+      - Bearer token authentication with organization-level and user-scoped tokens issued from the dashboard Status tab
+      - Webhook streaming with task, step, and crew event callback URLs supplied per kickoff
+      - Crew Studio visual editor with AI copilot for building crews and flows without code
+      - GitHub integration and CrewAI CLI deployment paths to AMP
+      - Automations with triggers from Gmail, Google Calendar, Google Drive, OneDrive, Outlook, HubSpot, Salesforce, Slack, Microsoft Teams, and Zapier
+      - 40+ enterprise integrations including Salesforce, HubSpot, Stripe, Shopify, Zendesk, Jira, Linear, Asana, ClickUp, Notion, Slack, Microsoft Teams, Outlook, Gmail, Google Workspace, Microsoft 365, Box, SharePoint, and GitHub
+      - Flow human-in-the-loop management with /resume endpoint for approve/retry decisions
+      - Hallucination guardrail and PII redaction for traces
+      - Role-based access control (RBAC) and team management
+      - Single Sign-On with Microsoft Entra and Okta (OAuth2 strategy published as crewai-omniauth-okta)
+      - Secrets manager federation with AWS Secrets Manager, Azure Key Vault, GCP Secret Manager, plus AWS, Azure, and GCP Workload Identity (OIDC) federation
+      - Traces dashboard for monitoring crew runs and OpenTelemetry export for external pipelines
+      - Observability integrations with Arize Phoenix, Braintrust, Datadog, Galileo, Langfuse, Langtrace, MLflow, Opik, Portkey, and Weave
+      - Agent Repositories for sharing and reusing agents across teams
+      - Marketplace for discovering, installing, and governing reusable agents, tools, and crews
+      - A2A on AMP — agent-to-agent communication with distributed state
+      - Tool Repository, Custom MCP Servers, and private package registry support
+      - Azure OpenAI and Vertex AI with Workload Identity LLM provider setup
+      - React component export for embedding crews into web apps
+      - MCP server (crewAIInc/enterprise-mcp-server) for managing deployments from MCP-compatible IDEs and agents
+      - 50 free workflow executions per month on the Basic tier; $0.50 per additional execution
+      - Enterprise tier includes up to 30,000 free executions per month, dedicated support, 50 hours of development per month, on-site support and training
+      - Used by 60% of Fortune 500 companies; runs 450M+ agentic workflows per month
+    sources:
+      - https://www.crewai.com/enterprise
+      - https://www.crewai.com/pricing
+      - https://docs.crewai.com/en/enterprise/introduction
+      - https://docs.crewai.com/en/api-reference/introduction
+      - https://docs.crewai.com/en/api-reference/kickoff
+      - https://docs.crewai.com/en/api-reference/status
+      - https://docs.crewai.com/en/api-reference/inputs
+      - https://docs.crewai.com/en/api-reference/resume
+      - https://docs.crewai.com/en/enterprise/features/webhook-streaming
+      - https://docs.crewai.com/llms.txt
+    updated: '2026-05-24'
+maintainers:
+  - FN: Kin Lane
+    email: info@apievangelist.com
+    X: apievangelist
+    url: https://apievangelist.com

@@ -1,0 +1,53 @@
+specVersion: '0.1'
+name: CrewAI Cloud (AMP) Rate Limits
+description: >-
+  Documented limits for CrewAI AMP. CrewAI does not publish per-second request
+  rate limits for the per-crew REST API; the primary enforcement surface is the
+  monthly workflow-execution quota tied to the customer's plan. AMP Factory
+  deployments inherit limits from the underlying customer-owned infrastructure
+  rather than a CrewAI-imposed ceiling.
+provider: crewai-cloud
+updated: '2026-05-24'
+sources:
+  - https://www.crewai.com/pricing
+  - https://docs.crewai.com/en/enterprise/introduction
+  - https://docs.crewai.com/en/enterprise/resources/frequently-asked-questions
+quotas:
+  - id: basic-monthly-executions
+    plan: basic
+    scope: organization
+    metric: workflow_execution
+    limit: 50
+    period: month
+    overage: $0.50 per execution
+    description: 50 workflow executions per month on the free Basic plan.
+  - id: enterprise-included-executions
+    plan: enterprise
+    scope: organization
+    metric: workflow_execution
+    limit: 30000
+    period: month
+    overage: Negotiated as part of the enterprise contract.
+    description: Up to 30,000 workflow executions per month included with Enterprise.
+  - id: enterprise-max-executions
+    plan: enterprise
+    scope: organization
+    metric: workflow_execution
+    limit: unlimited
+    period: month
+    description: No hard cap on workflow executions for Enterprise customers.
+requestLimits:
+  - id: per-crew-rest-api
+    description: >-
+      CrewAI does not publish per-second or per-minute request rate limits for
+      the per-crew REST API at https://{crew-name}.crewai.com. Practical limits
+      are governed by the underlying execution capacity of each deployed crew
+      and the monthly execution quota above.
+    publishedValue: undocumented
+concurrency:
+  - id: kickoff-concurrency
+    description: >-
+      Concurrency of in-flight kickoffs per crew is not publicly documented.
+      Enterprise customers can request capacity sizing as part of deployment
+      planning.
+    publishedValue: undocumented

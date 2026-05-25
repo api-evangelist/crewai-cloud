@@ -1,0 +1,39 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://research-crew.crewai.com/status/abcd1234-5678-90ef-ghij-klmnopqrstuv",
+    "headers": {
+      "Authorization": "Bearer sk-amp-org-..."
+    }
+  },
+  "response": {
+    "status": 200,
+    "body": {
+      "status": "completed",
+      "result": {
+        "output": "Comprehensive report on Brazilian open banking regulation...",
+        "tasks": [
+          {
+            "task_id": "t-1",
+            "agent": "Market Researcher",
+            "output": "Summary of BCB Resolutions 1, 2, 3, 4 ...",
+            "execution_time": 12.4
+          },
+          {
+            "task_id": "t-2",
+            "agent": "Regulatory Analyst",
+            "output": "Compliance implications for Tier 1 banks ...",
+            "execution_time": 17.6
+          },
+          {
+            "task_id": "t-3",
+            "agent": "Executive Writer",
+            "output": "Final executive briefing ...",
+            "execution_time": 34.1
+          }
+        ]
+      },
+      "execution_time": 64.1
+    }
+  }
+}

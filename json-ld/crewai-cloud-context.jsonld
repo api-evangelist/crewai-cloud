@@ -1,0 +1,66 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "prov": "http://www.w3.org/ns/prov#",
+    "crewai": "https://docs.crewai.com/vocab#",
+    "Crew": "crewai:Crew",
+    "Agent": "crewai:Agent",
+    "Task": "crewai:Task",
+    "Kickoff": "crewai:Kickoff",
+    "Execution": "crewai:Execution",
+    "Flow": "crewai:Flow",
+    "Trigger": "crewai:Trigger",
+    "Tool": "crewai:Tool",
+    "Webhook": "crewai:Webhook",
+    "HumanReview": "crewai:HumanReview",
+    "Trace": "crewai:Trace",
+    "name": "schema:name",
+    "description": "schema:description",
+    "url": "schema:url",
+    "identifier": "schema:identifier",
+    "kickoff_id": {
+      "@id": "crewai:kickoffId",
+      "@type": "schema:identifier"
+    },
+    "execution_id": {
+      "@id": "crewai:executionId",
+      "@type": "schema:identifier"
+    },
+    "task_id": {
+      "@id": "crewai:taskId"
+    },
+    "agent": {
+      "@id": "crewai:agent",
+      "@type": "@id"
+    },
+    "inputs": {
+      "@id": "crewai:inputs",
+      "@container": "@index"
+    },
+    "result": "crewai:result",
+    "status": {
+      "@id": "crewai:status",
+      "@type": "@vocab"
+    },
+    "execution_time": {
+      "@id": "crewai:executionTimeSeconds",
+      "@type": "xsd:double"
+    },
+    "current_task": "crewai:currentTask",
+    "progress": "crewai:progress",
+    "completed_tasks": "crewai:completedTasks",
+    "total_tasks": "crewai:totalTasks",
+    "taskWebhookUrl": { "@id": "crewai:taskWebhookUrl", "@type": "@id" },
+    "stepWebhookUrl": { "@id": "crewai:stepWebhookUrl", "@type": "@id" },
+    "crewWebhookUrl": { "@id": "crewai:crewWebhookUrl", "@type": "@id" },
+    "human_feedback": "crewai:humanFeedback",
+    "is_approve": "crewai:isApprove",
+    "running": "crewai:Running",
+    "completed": "crewai:Completed",
+    "error": "crewai:Error",
+    "resumed": "crewai:Resumed",
+    "retrying": "crewai:Retrying",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  }
+}

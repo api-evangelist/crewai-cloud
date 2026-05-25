@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/crewai-cloud/main/json-schema/crewai-cloud-kickoff-schema.json",
+  "title": "CrewAI AMP Kickoff",
+  "description": "Request payload for POST /kickoff on a CrewAI AMP per-crew endpoint.",
+  "type": "object",
+  "required": ["inputs"],
+  "properties": {
+    "inputs": {
+      "type": "object",
+      "description": "Key-value pairs of crew inputs. Schema is crew-specific; discover keys via GET /inputs.",
+      "additionalProperties": true
+    },
+    "meta": {
+      "type": "object",
+      "description": "Free-form metadata echoed into webhook event payloads.",
+      "additionalProperties": true
+    },
+    "taskWebhookUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL invoked after each task completes."
+    },
+    "stepWebhookUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL invoked after each agent thought or action."
+    },
+    "crewWebhookUrl": {
+      "type": "string",
+      "format": "uri",
+      "description": "URL invoked when the crew execution completes."
+    }
+  },
+  "additionalProperties": false
+}

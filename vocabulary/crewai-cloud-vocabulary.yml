@@ -1,0 +1,124 @@
+name: CrewAI Cloud Vocabulary
+version: '0.1'
+description: >-
+  Operational vocabulary mapping CrewAI AMP concepts (crews, kickoffs, tasks,
+  agents, triggers, automations, traces) to API Commons and Naftiko dimensions.
+dimensions:
+  - name: Resource
+    description: First-class resources exposed by AMP.
+    terms:
+      - Crew
+      - Kickoff
+      - Execution
+      - Task
+      - Agent
+      - Flow
+      - Tool
+      - Trigger
+      - Automation
+      - Trace
+      - Webhook
+      - Marketplace Item
+      - Agent Repository Entry
+  - name: Lifecycle
+    description: Lifecycle states a kickoff/task passes through.
+    terms:
+      - queued
+      - running
+      - awaiting_human_feedback
+      - completed
+      - error
+      - resumed
+      - retrying
+  - name: Deployment
+    description: Deployment modes available for AMP.
+    terms:
+      - AMP Cloud (managed, multi-tenant at app.crewai.com)
+      - AMP Factory (self-hosted on AWS / Azure / GCP)
+  - name: Authentication
+    description: Identity and access mechanisms.
+    terms:
+      - Organization Bearer Token
+      - User Bearer Token
+      - Single Sign-On (Microsoft Entra)
+      - Single Sign-On (Okta)
+      - Role-Based Access Control
+  - name: Secrets
+    description: Federated secret stores supported by AMP.
+    terms:
+      - AWS Secrets Manager
+      - AWS Workload Identity Federation
+      - Azure Key Vault
+      - Azure Workload Identity Federation
+      - Google Cloud Secret Manager
+      - GCP Workload Identity Federation
+  - name: Observability
+    description: Trace and telemetry destinations.
+    terms:
+      - AMP Traces
+      - OpenTelemetry Export
+      - Arize Phoenix
+      - Braintrust
+      - Datadog
+      - Galileo
+      - Langfuse
+      - Langtrace
+      - MLflow
+      - Opik
+      - Portkey
+      - Weave
+  - name: Trigger Source
+    description: External systems that can initiate automations.
+    terms:
+      - Gmail
+      - Google Calendar
+      - Google Drive
+      - OneDrive
+      - Outlook
+      - HubSpot
+      - Salesforce
+      - Slack
+      - Microsoft Teams
+      - Zapier
+  - name: Integration
+    description: Enterprise SaaS systems CrewAI agents can act against.
+    terms:
+      - Salesforce
+      - HubSpot
+      - Stripe
+      - Shopify
+      - Zendesk
+      - Jira
+      - Linear
+      - Asana
+      - ClickUp
+      - Notion
+      - Slack
+      - Microsoft Teams
+      - Microsoft Outlook
+      - Gmail
+      - Google Docs
+      - Google Sheets
+      - Google Slides
+      - Google Drive
+      - Google Contacts
+      - Microsoft OneDrive
+      - Microsoft Excel
+      - Microsoft Word
+      - Microsoft SharePoint
+      - Box
+      - GitHub
+  - name: Capability
+    description: Higher-order AMP capabilities layered on the OSS framework.
+    terms:
+      - Crew Studio (Visual Editor)
+      - Agent Repositories
+      - Tool Repository
+      - Marketplace
+      - A2A on AMP
+      - Flow HITL Management
+      - Hallucination Guardrail
+      - PII Redaction for Traces
+      - Custom MCP Servers
+      - Private Package Registries
+      - React Component Export
