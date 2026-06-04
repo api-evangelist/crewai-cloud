@@ -1,0 +1,161 @@
+arazzo: 1.0.1
+info:
+  title: CrewAI AMP Kick Off With Human-in-the-Loop Review
+  summary: Kick off a crew, poll until it pauses for review, deliver feedback, and poll again.
+  description: >-
+    Covers the human-in-the-loop crew pattern. The workflow kicks off an
+    execution and polls status until the run leaves the running state. When a
+    task pauses for human review the caller delivers feedback through the resume
+    endpoint, either approving the output to proceed or returning it with notes
+    to retry, and the workflow then polls again until the execution completes or
+    errors. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: crewaiAmpApi
+  url: ../openapi/crewai-amp-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: kickoff-with-hitl-review
+  summary: Kick off a crew, deliver human feedback on a paused task, then poll to completion.
+  description: >-
+    Chains POST /kickoff, a GET /status/{kickoff_id} poll loop, POST /resume to
+    deliver human-in-the-loop feedback on the paused task, and a final status
+    poll loop to reach a terminal state.
+  inputs:
+    type: object
+    required:
+    - bearerToken
+    - inputs
+    - taskId
+    - humanFeedback
+    - isApprove
+    properties:
+      bearerToken:
+        type: string
+        description: Bearer token from the AMP dashboard Status tab.
+      inputs:
+        type: object
+        description: Key-value pairs of all required inputs for the crew.
+      taskId:
+        type: string
+        description: Identifier of the task awaiting human feedback.
+      humanFeedback:
+        type: string
+        description: Feedback to incorporate as additional context for the task.
+      isApprove:
+        type: boolean
+        description: True to proceed; false to retry the task with the feedback.
+  steps:
+  - stepId: kickoff
+    description: >-
+      Launch the crew execution with the supplied inputs and capture the
+      kickoff_id, which doubles as the execution_id for resume.
+    operationId: kickoffCrew
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        inputs: $inputs.inputs
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      kickoffId: $response.body#/kickoff_id
+  - stepId: pollUntilPaused
+    description: >-
+      Poll the execution status until it is no longer running, at which point a
+      task may be awaiting human review.
+    operationId: getKickoffStatus
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: kickoff_id
+      in: path
+      value: $steps.kickoff.outputs.kickoffId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+    onSuccess:
+    - name: stillRunning
+      type: goto
+      stepId: pollUntilPaused
+      criteria:
+      - context: $response.body
+        condition: $.status == "running"
+        type: jsonpath
+    - name: needsReview
+      type: goto
+      stepId: submitFeedback
+      criteria:
+      - context: $response.body
+        condition: $.status != "running"
+        type: jsonpath
+  - stepId: submitFeedback
+    description: >-
+      Resume the paused execution by delivering the reviewer's feedback on the
+      named task, approving it to proceed or returning it to retry.
+    operationId: resumeKickoff
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        execution_id: $steps.kickoff.outputs.kickoffId
+        task_id: $inputs.taskId
+        human_feedback: $inputs.humanFeedback
+        is_approve: $inputs.isApprove
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      resumeStatus: $response.body#/status
+      message: $response.body#/message
+  - stepId: pollUntilDone
+    description: >-
+      Poll the execution status again after feedback was delivered, looping
+      while running and ending once the execution settles into completed or
+      error.
+    operationId: getKickoffStatus
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: kickoff_id
+      in: path
+      value: $steps.kickoff.outputs.kickoffId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      finalStatus: $response.body#/status
+      output: $response.body#/result/output
+      tasks: $response.body#/result/tasks
+      error: $response.body#/error
+      executionTime: $response.body#/execution_time
+    onSuccess:
+    - name: stillRunning
+      type: goto
+      stepId: pollUntilDone
+      criteria:
+      - context: $response.body
+        condition: $.status == "running"
+        type: jsonpath
+    - name: settled
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status != "running"
+        type: jsonpath
+  outputs:
+    kickoffId: $steps.kickoff.outputs.kickoffId
+    resumeStatus: $steps.submitFeedback.outputs.resumeStatus
+    finalStatus: $steps.pollUntilDone.outputs.finalStatus
+    output: $steps.pollUntilDone.outputs.output
+    tasks: $steps.pollUntilDone.outputs.tasks
+    error: $steps.pollUntilDone.outputs.error
+    executionTime: $steps.pollUntilDone.outputs.executionTime

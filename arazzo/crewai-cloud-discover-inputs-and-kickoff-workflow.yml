@@ -1,0 +1,78 @@
+arazzo: 1.0.1
+info:
+  title: CrewAI AMP Discover Inputs and Kick Off
+  summary: Discover the inputs a crew expects, then launch an execution with them.
+  description: >-
+    Before launching a crew you usually do not know which input keys it expects.
+    This workflow first calls the inputs endpoint to enumerate the parameter
+    names the deployed crew requires, then immediately kicks off an execution
+    with a supplied inputs object, returning the kickoff identifier that
+    subsequent polling can use. Every step spells out its request inline so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: crewaiAmpApi
+  url: ../openapi/crewai-amp-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: discover-inputs-and-kickoff
+  summary: List the crew's required input names, then kick off an execution.
+  description: >-
+    Calls GET /inputs to discover the input parameter names the crew expects,
+    then calls POST /kickoff with the caller-supplied inputs object to launch an
+    execution and capture the kickoff_id.
+  inputs:
+    type: object
+    required:
+    - bearerToken
+    - inputs
+    properties:
+      bearerToken:
+        type: string
+        description: Bearer token from the AMP dashboard Status tab.
+      inputs:
+        type: object
+        description: Key-value pairs of all required inputs for the crew.
+      meta:
+        type: object
+        description: Optional metadata to attach to the kickoff (echoed in events).
+      crewWebhookUrl:
+        type: string
+        description: Optional callback URL invoked when the crew execution completes.
+  steps:
+  - stepId: listRequiredInputs
+    description: >-
+      Retrieve the list of input parameter names this crew expects so the caller
+      can confirm the supplied inputs object covers every required key.
+    operationId: listInputs
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      requiredInputs: $response.body#/inputs
+  - stepId: kickoff
+    description: >-
+      Launch a crew execution with the supplied inputs and optional metadata and
+      crew webhook, returning the kickoff_id used to poll status.
+    operationId: kickoffCrew
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        inputs: $inputs.inputs
+        meta: $inputs.meta
+        crewWebhookUrl: $inputs.crewWebhookUrl
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      kickoffId: $response.body#/kickoff_id
+  outputs:
+    requiredInputs: $steps.listRequiredInputs.outputs.requiredInputs
+    kickoffId: $steps.kickoff.outputs.kickoffId

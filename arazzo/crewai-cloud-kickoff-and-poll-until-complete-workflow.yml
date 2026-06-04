@@ -1,0 +1,147 @@
+arazzo: 1.0.1
+info:
+  title: CrewAI AMP Kick Off and Poll Until Complete
+  summary: Launch a crew execution and poll its status until it completes or errors.
+  description: >-
+    The canonical CrewAI AMP run pattern. The workflow kicks off a crew with the
+    supplied inputs, then polls the status endpoint in a loop, looping back while
+    the execution reports running and branching to a terminal outcome when the
+    status becomes completed or error. On completion it surfaces the final
+    aggregated output and total execution time; on error it surfaces the error
+    message. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: crewaiAmpApi
+  url: ../openapi/crewai-amp-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: kickoff-and-poll-until-complete
+  summary: Kick off a crew and poll status until it completes or errors.
+  description: >-
+    Calls POST /kickoff to launch an execution, then repeatedly calls
+    GET /status/{kickoff_id}, looping while status is running and ending when the
+    status is completed or error.
+  inputs:
+    type: object
+    required:
+    - bearerToken
+    - inputs
+    properties:
+      bearerToken:
+        type: string
+        description: Bearer token from the AMP dashboard Status tab.
+      inputs:
+        type: object
+        description: Key-value pairs of all required inputs for the crew.
+      meta:
+        type: object
+        description: Optional metadata to attach to the kickoff (echoed in events).
+  steps:
+  - stepId: kickoff
+    description: >-
+      Launch a crew execution with the supplied inputs and capture the
+      kickoff_id used to poll status.
+    operationId: kickoffCrew
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        inputs: $inputs.inputs
+        meta: $inputs.meta
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      kickoffId: $response.body#/kickoff_id
+  - stepId: pollStatus
+    description: >-
+      Poll the execution status. While the status is running, loop back and poll
+      again; when it is completed continue to the result, and when it is error
+      branch to the error handler.
+    operationId: getKickoffStatus
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: kickoff_id
+      in: path
+      value: $steps.kickoff.outputs.kickoffId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+    onSuccess:
+    - name: stillRunning
+      type: goto
+      stepId: pollStatus
+      criteria:
+      - context: $response.body
+        condition: $.status == "running"
+        type: jsonpath
+    - name: finished
+      type: goto
+      stepId: collectResult
+      criteria:
+      - context: $response.body
+        condition: $.status == "completed"
+        type: jsonpath
+    - name: failed
+      type: goto
+      stepId: collectError
+      criteria:
+      - context: $response.body
+        condition: $.status == "error"
+        type: jsonpath
+  - stepId: collectResult
+    description: >-
+      Re-read the completed status to surface the final aggregated crew output,
+      per-task results, and total execution time.
+    operationId: getKickoffStatus
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: kickoff_id
+      in: path
+      value: $steps.kickoff.outputs.kickoffId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.status == "completed"
+      type: jsonpath
+    outputs:
+      output: $response.body#/result/output
+      tasks: $response.body#/result/tasks
+      executionTime: $response.body#/execution_time
+    onSuccess:
+    - name: done
+      type: end
+  - stepId: collectError
+    description: >-
+      Re-read the errored status to surface the human-readable error message and
+      the elapsed execution time before the failure.
+    operationId: getKickoffStatus
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: kickoff_id
+      in: path
+      value: $steps.kickoff.outputs.kickoffId
+    successCriteria:
+    - condition: $statusCode == 200
+    - context: $response.body
+      condition: $.status == "error"
+      type: jsonpath
+    outputs:
+      error: $response.body#/error
+      executionTime: $response.body#/execution_time
+  outputs:
+    kickoffId: $steps.kickoff.outputs.kickoffId
+    output: $steps.collectResult.outputs.output
+    tasks: $steps.collectResult.outputs.tasks
+    executionTime: $steps.collectResult.outputs.executionTime
+    error: $steps.collectError.outputs.error

@@ -1,0 +1,127 @@
+arazzo: 1.0.1
+info:
+  title: CrewAI AMP Resume a Paused Execution
+  summary: Inspect an existing execution, deliver human feedback, then poll until it settles.
+  description: >-
+    Resumes an already-running execution that is known by its kickoff_id. The
+    workflow first inspects the current status, then delivers the reviewer's
+    feedback on the paused task through the resume endpoint, and finally polls
+    the status endpoint until the execution leaves the running state and settles
+    into completed or error. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: crewaiAmpApi
+  url: ../openapi/crewai-amp-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: resume-paused-execution
+  summary: Inspect a known execution, submit human feedback, and poll until it settles.
+  description: >-
+    Chains GET /status/{kickoff_id} to inspect a known execution, POST /resume to
+    deliver human-in-the-loop feedback, and a GET /status/{kickoff_id} poll loop
+    to reach a terminal state.
+  inputs:
+    type: object
+    required:
+    - bearerToken
+    - kickoffId
+    - taskId
+    - humanFeedback
+    - isApprove
+    properties:
+      bearerToken:
+        type: string
+        description: Bearer token from the AMP dashboard Status tab.
+      kickoffId:
+        type: string
+        description: The kickoff_id of the execution to inspect and resume.
+      taskId:
+        type: string
+        description: Identifier of the task awaiting human feedback.
+      humanFeedback:
+        type: string
+        description: Feedback to incorporate as additional context for the task.
+      isApprove:
+        type: boolean
+        description: True to proceed; false to retry the task with the feedback.
+  steps:
+  - stepId: inspectStatus
+    description: >-
+      Read the current status of the execution to confirm it exists and capture
+      the current task before delivering feedback.
+    operationId: getKickoffStatus
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: kickoff_id
+      in: path
+      value: $inputs.kickoffId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+      currentTask: $response.body#/current_task
+  - stepId: submitFeedback
+    description: >-
+      Resume the execution by delivering the reviewer's feedback on the named
+      task, approving it to proceed or returning it to retry.
+    operationId: resumeKickoff
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        execution_id: $inputs.kickoffId
+        task_id: $inputs.taskId
+        human_feedback: $inputs.humanFeedback
+        is_approve: $inputs.isApprove
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      resumeStatus: $response.body#/status
+      message: $response.body#/message
+  - stepId: pollUntilDone
+    description: >-
+      Poll the execution status after resuming, looping while running and ending
+      once the execution settles into completed or error.
+    operationId: getKickoffStatus
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: kickoff_id
+      in: path
+      value: $inputs.kickoffId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      finalStatus: $response.body#/status
+      output: $response.body#/result/output
+      tasks: $response.body#/result/tasks
+      error: $response.body#/error
+      executionTime: $response.body#/execution_time
+    onSuccess:
+    - name: stillRunning
+      type: goto
+      stepId: pollUntilDone
+      criteria:
+      - context: $response.body
+        condition: $.status == "running"
+        type: jsonpath
+    - name: settled
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.status != "running"
+        type: jsonpath
+  outputs:
+    resumeStatus: $steps.submitFeedback.outputs.resumeStatus
+    finalStatus: $steps.pollUntilDone.outputs.finalStatus
+    output: $steps.pollUntilDone.outputs.output
+    tasks: $steps.pollUntilDone.outputs.tasks
+    error: $steps.pollUntilDone.outputs.error
+    executionTime: $steps.pollUntilDone.outputs.executionTime

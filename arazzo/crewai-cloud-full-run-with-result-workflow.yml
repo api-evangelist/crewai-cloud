@@ -1,0 +1,128 @@
+arazzo: 1.0.1
+info:
+  title: CrewAI AMP Full Run With Result
+  summary: Discover inputs, kick off a crew, poll to completion, and return the result.
+  description: >-
+    An end-to-end crew run that chains all the read-and-launch operations: it
+    discovers the input names the crew expects, kicks off an execution with the
+    supplied inputs, polls the status endpoint until the execution leaves the
+    running state, and then returns the final aggregated output, per-task
+    results, and total execution time when completed. Every step spells out its
+    request inline so the flow can be read and executed without opening the
+    underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: crewaiAmpApi
+  url: ../openapi/crewai-amp-rest-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: full-run-with-result
+  summary: Discover inputs, kick off, poll until complete, and return the result.
+  description: >-
+    Chains GET /inputs, POST /kickoff, and a GET /status/{kickoff_id} poll loop
+    into a single end-to-end run that ends by surfacing the completed crew
+    result.
+  inputs:
+    type: object
+    required:
+    - bearerToken
+    - inputs
+    properties:
+      bearerToken:
+        type: string
+        description: Bearer token from the AMP dashboard Status tab.
+      inputs:
+        type: object
+        description: Key-value pairs of all required inputs for the crew.
+      meta:
+        type: object
+        description: Optional metadata to attach to the kickoff (echoed in events).
+  steps:
+  - stepId: listRequiredInputs
+    description: >-
+      Discover the input parameter names this crew expects so the supplied
+      inputs object can be validated against the crew contract.
+    operationId: listInputs
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      requiredInputs: $response.body#/inputs
+  - stepId: kickoff
+    description: >-
+      Launch the crew execution with the supplied inputs and capture the
+      kickoff_id used to poll status.
+    operationId: kickoffCrew
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    requestBody:
+      contentType: application/json
+      payload:
+        inputs: $inputs.inputs
+        meta: $inputs.meta
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      kickoffId: $response.body#/kickoff_id
+  - stepId: pollStatus
+    description: >-
+      Poll the execution status. While the status is running, loop back and poll
+      again; once it is no longer running, continue to collect the result.
+    operationId: getKickoffStatus
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: kickoff_id
+      in: path
+      value: $steps.kickoff.outputs.kickoffId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      status: $response.body#/status
+    onSuccess:
+    - name: stillRunning
+      type: goto
+      stepId: pollStatus
+      criteria:
+      - context: $response.body
+        condition: $.status == "running"
+        type: jsonpath
+    - name: settled
+      type: goto
+      stepId: collectResult
+      criteria:
+      - context: $response.body
+        condition: $.status != "running"
+        type: jsonpath
+  - stepId: collectResult
+    description: >-
+      Read the settled status to surface the final aggregated crew output,
+      per-task results, total execution time, and the terminal status value.
+    operationId: getKickoffStatus
+    parameters:
+    - name: Authorization
+      in: header
+      value: "Bearer $inputs.bearerToken"
+    - name: kickoff_id
+      in: path
+      value: $steps.kickoff.outputs.kickoffId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      finalStatus: $response.body#/status
+      output: $response.body#/result/output
+      tasks: $response.body#/result/tasks
+      executionTime: $response.body#/execution_time
+  outputs:
+    requiredInputs: $steps.listRequiredInputs.outputs.requiredInputs
+    kickoffId: $steps.kickoff.outputs.kickoffId
+    finalStatus: $steps.collectResult.outputs.finalStatus
+    output: $steps.collectResult.outputs.output
+    tasks: $steps.collectResult.outputs.tasks
+    executionTime: $steps.collectResult.outputs.executionTime

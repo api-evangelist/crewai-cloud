@@ -102,6 +102,24 @@ apis:
       - type: Documentation
         url: https://docs.crewai.com/en/enterprise/guides/custom-mcp-server
 common:
+  - type: ArazzoWorkflows
+    url: arazzo/
+    workflows:
+    - url: arazzo/crewai-cloud-discover-inputs-and-kickoff-workflow.yml
+      name: CrewAI AMP Discover Inputs and Kick Off
+      summary: Discover the inputs a crew expects, then launch an execution with them.
+    - url: arazzo/crewai-cloud-full-run-with-result-workflow.yml
+      name: CrewAI AMP Full Run With Result
+      summary: Discover inputs, kick off a crew, poll to completion, and return the result.
+    - url: arazzo/crewai-cloud-kickoff-and-poll-until-complete-workflow.yml
+      name: CrewAI AMP Kick Off and Poll Until Complete
+      summary: Launch a crew execution and poll its status until it completes or errors.
+    - url: arazzo/crewai-cloud-kickoff-with-hitl-review-workflow.yml
+      name: CrewAI AMP Kick Off With Human-in-the-Loop Review
+      summary: Kick off a crew, poll until it pauses for review, deliver feedback, and poll again.
+    - url: arazzo/crewai-cloud-resume-paused-execution-workflow.yml
+      name: CrewAI AMP Resume a Paused Execution
+      summary: Inspect an existing execution, deliver human feedback, then poll until it settles.
   - type: Website
     url: https://www.crewai.com
   - type: Portal
