@@ -102,6 +102,8 @@ apis:
       - type: Documentation
         url: https://docs.crewai.com/en/enterprise/guides/custom-mcp-server
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/crewai-cloud/overview
   - type: ArazzoWorkflows
     url: arazzo/
     workflows:
