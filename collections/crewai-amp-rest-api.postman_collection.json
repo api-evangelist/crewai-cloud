@@ -1,0 +1,1297 @@
+{
+  "item": [
+    {
+      "id": "1e4a6809-a0d2-4c4c-9243-79a43a15b20c",
+      "name": "Inputs",
+      "description": {
+        "content": "Discover the input parameters this crew accepts.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4b1bf175-a498-4ab3-b331-ffbb43997d40",
+          "name": "List Required Crew Inputs",
+          "request": {
+            "name": "List Required Crew Inputs",
+            "description": {
+              "content": "Retrieves the list of input parameter names this crew expects when you kick it off.\nUse this to discover the keys you must populate in the `inputs` object on `POST /kickoff`.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "inputs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The crew slug from the AMP dashboard.",
+                  "type": "any",
+                  "value": "{{crewName}}",
+                  "key": "crewName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e8528444-ac3b-4834-bfa0-25162ba95ef0",
+              "name": "Input parameter list returned.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inputs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"inputs\": [\n    \"topic\",\n    \"target_audience\",\n    \"depth\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3d736c30-c5f2-4a6f-92e1-64201dc2c6e5",
+              "name": "Authentication failed; check Bearer token validity.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inputs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"details\": {\n    \"key_0\": 9886.017081950584\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2a2ad8a3-0ced-4a1a-aa7d-1fcd12062ac3",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inputs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"details\": {\n    \"key_0\": 9886.017081950584\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eda482a0-29c7-47e7-bdc1-9d7dcb7ad70a",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "inputs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"details\": {\n    \"key_0\": 9886.017081950584\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "de3743ec-96fa-4e63-8d25-ccfd0f1bd144",
+      "name": "Kickoff",
+      "description": {
+        "content": "Launch a crew execution.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "68bd64fa-9279-4683-8258-c799a62cb8f0",
+          "name": "Kick Off Crew Execution",
+          "request": {
+            "name": "Kick Off Crew Execution",
+            "description": {
+              "content": "Launches a crew execution with the supplied inputs and optional webhook callback URLs.\nReturns a `kickoff_id` you can use with `GET /status/{kickoff_id}` to poll progress\nor to correlate webhook events.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kickoff"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The crew slug from the AMP dashboard.",
+                  "type": "any",
+                  "value": "{{crewName}}",
+                  "key": "crewName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"inputs\": {\n    \"key_0\": 3079\n  },\n  \"meta\": {\n    \"key_0\": \"string\",\n    \"key_1\": \"string\",\n    \"key_2\": true\n  },\n  \"taskWebhookUrl\": \"<uri>\",\n  \"stepWebhookUrl\": \"<uri>\",\n  \"crewWebhookUrl\": \"<uri>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "56d71e2c-f3f6-4725-a715-220d78d1ff36",
+              "name": "Kickoff accepted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kickoff"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": {\n    \"topic\": \"Open banking in Brazil\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"kickoff_id\": \"abcd1234-5678-90ef-ghij-klmnopqrstuv\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3b568c4a-7fcd-41a6-b519-46eb470a459a",
+              "name": "Invalid request body or missing required inputs.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kickoff"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": {\n    \"topic\": \"Open banking in Brazil\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"details\": {\n    \"key_0\": 9886.017081950584\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c17c5c50-62a5-42fb-9cd9-0bd757591d1e",
+              "name": "Authentication failed; check Bearer token validity.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kickoff"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": {\n    \"topic\": \"Open banking in Brazil\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"details\": {\n    \"key_0\": 9886.017081950584\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "67a1c179-6617-4e6a-8299-65bdb3689f16",
+              "name": "Validation error with missing or malformed input fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kickoff"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": {\n    \"topic\": \"Open banking in Brazil\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"details\": {\n    \"key_0\": 9886.017081950584\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6664860d-2b6b-4bd0-beb3-337a94a50866",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kickoff"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": {\n    \"topic\": \"Open banking in Brazil\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"details\": {\n    \"key_0\": 9886.017081950584\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "fa1c96c9-8d92-4a8d-9e65-80570e54a66b",
+      "name": "Status",
+      "description": {
+        "content": "Inspect execution progress and retrieve results.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8ccfbcf1-7f25-47a9-aa70-7192f1168b16",
+          "name": "Get Kickoff Status",
+          "request": {
+            "name": "Get Kickoff Status",
+            "description": {
+              "content": "Returns the current status of a crew execution identified by `kickoff_id`. The response\nshape varies by state: `running` includes current task and progress; `completed` includes\nper-task outputs and total execution time; `error` includes an error message.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "status",
+                ":kickoff_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "kickoff_id",
+                  "description": "(Required) UUID returned by `POST /kickoff`."
+                },
+                {
+                  "description": "The crew slug from the AMP dashboard.",
+                  "type": "any",
+                  "value": "{{crewName}}",
+                  "key": "crewName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "613a8c7f-bdec-48d7-b7f8-e6c1f63abc57",
+              "name": "Execution status.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    ":kickoff_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "kickoff_id",
+                      "description": "(Required) UUID returned by `POST /kickoff`."
+                    },
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"running\",\n  \"current_task\": \"Research market trends\",\n  \"progress\": {\n    \"completed_tasks\": 2,\n    \"total_tasks\": 5\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "880d86e4-f5e9-4431-9f07-94b5c685ed73",
+              "name": "Authentication failed; check Bearer token validity.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    ":kickoff_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "kickoff_id",
+                      "description": "(Required) UUID returned by `POST /kickoff`."
+                    },
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"details\": {\n    \"key_0\": 9886.017081950584\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fbce8e31-5794-471c-aa7a-bed3259c4fec",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    ":kickoff_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "kickoff_id",
+                      "description": "(Required) UUID returned by `POST /kickoff`."
+                    },
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"details\": {\n    \"key_0\": 9886.017081950584\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dadbb8d9-7843-4a31-95f2-f3c0a2c25fca",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    ":kickoff_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "kickoff_id",
+                      "description": "(Required) UUID returned by `POST /kickoff`."
+                    },
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"details\": {\n    \"key_0\": 9886.017081950584\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "95b2ed35-bab6-4e66-a6e1-a3cdd5d053ce",
+      "name": "Resume",
+      "description": {
+        "content": "Deliver human-in-the-loop feedback on a paused task.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1e166723-1515-4387-b12e-46ede38c1982",
+          "name": "Resume Crew with Human Feedback",
+          "request": {
+            "name": "Resume Crew with Human Feedback",
+            "description": {
+              "content": "Resumes a crew execution that paused for human-in-the-loop review. Supply\n`execution_id` and `task_id`, the reviewer's `human_feedback`, and `is_approve`\n(`true` to proceed, `false` to retry the task with the feedback as additional context).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "resume"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The crew slug from the AMP dashboard.",
+                  "type": "any",
+                  "value": "{{crewName}}",
+                  "key": "crewName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"execution_id\": \"<uuid>\",\n  \"task_id\": \"<string>\",\n  \"human_feedback\": \"<string>\",\n  \"is_approve\": \"<boolean>\",\n  \"taskWebhookUrl\": \"<uri>\",\n  \"stepWebhookUrl\": \"<uri>\",\n  \"crewWebhookUrl\": \"<uri>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f4f067a7-3332-4003-ae94-0bc514473c8b",
+              "name": "Resume accepted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"execution_id\": \"abcd1234-5678-90ef-ghij-klmnopqrstuv\",\n  \"task_id\": \"t-3\",\n  \"human_feedback\": \"Looks good, ship it.\",\n  \"is_approve\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"resumed\",\n  \"message\": \"Execution resumed at task t-3\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b5ea6ad-20a8-4cb9-8919-e34bf2e7bb6f",
+              "name": "Invalid request body or missing required inputs.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"execution_id\": \"abcd1234-5678-90ef-ghij-klmnopqrstuv\",\n  \"task_id\": \"t-3\",\n  \"human_feedback\": \"Looks good, ship it.\",\n  \"is_approve\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"details\": {\n    \"key_0\": 9886.017081950584\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88736251-9e2d-451c-bf22-a7e3d56f2b0b",
+              "name": "Authentication failed; check Bearer token validity.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"execution_id\": \"abcd1234-5678-90ef-ghij-klmnopqrstuv\",\n  \"task_id\": \"t-3\",\n  \"human_feedback\": \"Looks good, ship it.\",\n  \"is_approve\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"details\": {\n    \"key_0\": 9886.017081950584\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6ad00235-d458-4768-ae1c-26b37f4f4597",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"execution_id\": \"abcd1234-5678-90ef-ghij-klmnopqrstuv\",\n  \"task_id\": \"t-3\",\n  \"human_feedback\": \"Looks good, ship it.\",\n  \"is_approve\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"details\": {\n    \"key_0\": 9886.017081950584\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f2544247-ae59-4a26-b6d0-40b872f3efd9",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"execution_id\": \"abcd1234-5678-90ef-ghij-klmnopqrstuv\",\n  \"task_id\": \"t-3\",\n  \"human_feedback\": \"Looks good, ship it.\",\n  \"is_approve\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"details\": {\n    \"key_0\": 9886.017081950584\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The crew slug from the AMP dashboard.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-crew-name",
+      "key": "crewName"
+    },
+    {
+      "type": "string",
+      "value": "https://{{crewName}}.crewai.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b89ddd6e-27d5-435a-adcd-47544cdc445f",
+    "name": "CrewAI AMP REST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Per-crew REST API exposed by every crew deployed to CrewAI AMP (Cloud or Factory).\n\nEach deployed crew is reachable at its own hostname\n(`https://{crew-name}.crewai.com` for AMP Cloud, or your private hostname for AMP Factory)\nand supports four operations:\n\n- `GET  /inputs` — list the input parameter names this crew expects.\n- `POST /kickoff` — launch a crew execution and return a `kickoff_id`.\n- `GET  /status/{kickoff_id}` — poll execution status and retrieve results.\n- `POST /resume` — submit human feedback (approve or retry) for a HITL-paused task.\n\nAll endpoints require Bearer token authentication. Tokens are issued from the AMP dashboard\nStatus tab and come in two flavors: organization-level (full crew operations) and user-scoped\n(limited permissions).\n\n\nContact Support:\n Name: CrewAI Support",
+      "type": "text/plain"
+    }
+  }
+}

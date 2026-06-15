@@ -1,0 +1,108 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CrewAI AMP REST API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Inputs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Required Crew Inputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{crewName}.crewai.com/inputs"
+          },
+          "docs": "Retrieves the list of input parameter names this crew expects when you kick it off.\nUse this to discover the keys you must populate in the `inputs` object on `POST /kickoff`.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Kickoff",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Kick Off Crew Execution",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{crewName}.crewai.com/kickoff",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Launches a crew execution with the supplied inputs and optional webhook callback URLs.\nReturns a `kickoff_id` you can use with `GET /status/{kickoff_id}` to poll progress\nor to correlate webhook events.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Kickoff Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{crewName}.crewai.com/status/:kickoff_id",
+            "params": [
+              {
+                "name": "kickoff_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID returned by `POST /kickoff`."
+              }
+            ]
+          },
+          "docs": "Returns the current status of a crew execution identified by `kickoff_id`. The response\nshape varies by state: `running` includes current task and progress; `completed` includes\nper-task outputs and total execution time; `error` includes an error message.\n"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Resume",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Resume Crew with Human Feedback",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{crewName}.crewai.com/resume",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Resumes a crew execution that paused for human-in-the-loop review. Supply\n`execution_id` and `task_id`, the reviewer's `human_feedback`, and `is_approve`\n(`true` to proceed, `false` to retry the task with the feedback as additional context).\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

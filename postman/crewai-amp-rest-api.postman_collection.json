@@ -1,0 +1,1160 @@
+{
+  "info": {
+    "_postman_id": "9c997ea2-6b57-44b0-b2f1-de7afc6797f1",
+    "name": "CrewAI AMP REST API",
+    "description": "Per-crew REST API exposed by every crew deployed to CrewAI AMP (Cloud or Factory).\n\nEach deployed crew is reachable at its own hostname\n(`https://{crew-name}.crewai.com` for AMP Cloud, or your private hostname for AMP Factory)\nand supports four operations:\n\n- `GET  /inputs` \u2014 list the input parameter names this crew expects.\n- `POST /kickoff` \u2014 launch a crew execution and return a `kickoff_id`.\n- `GET  /status/{kickoff_id}` \u2014 poll execution status and retrieve results.\n- `POST /resume` \u2014 submit human feedback (approve or retry) for a HITL-paused task.\n\nAll endpoints require Bearer token authentication. Tokens are issued from the AMP dashboard\nStatus tab and come in two flavors: organization-level (full crew operations) and user-scoped\n(limited permissions).\n\n\nContact Support:\n Name: CrewAI Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-06-05T15:07:15.000Z",
+    "updatedAt": "2026-06-05T15:07:16.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9c997ea2-6b57-44b0-b2f1-de7afc6797f1"
+  },
+  "item": [
+    {
+      "name": "inputs",
+      "item": [
+        {
+          "name": "List Required Crew Inputs",
+          "id": "be7dee4a-a01e-4860-9015-1804fa70b4fa",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/inputs",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "inputs"
+              ]
+            },
+            "description": "Retrieves the list of input parameter names this crew expects when you kick it off.\nUse this to discover the keys you must populate in the `inputs` object on `POST /kickoff`.\n"
+          },
+          "response": [
+            {
+              "id": "1e0a99c7-5c04-4850-b3ab-655ba427ea82",
+              "name": "Input parameter list returned.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/inputs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "inputs"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"inputs\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "createdAt": "2026-06-05T15:07:16.000Z",
+              "updatedAt": "2026-06-05T15:07:16.000Z",
+              "uid": "35240-1e0a99c7-5c04-4850-b3ab-655ba427ea82"
+            },
+            {
+              "id": "9067e7ad-4131-49b6-89e7-1810ad03f631",
+              "name": "Authentication failed; check Bearer token validity.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/inputs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "inputs"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"details\": {\n    \"esse_50\": 91912369,\n    \"dolor_f\": false\n  }\n}",
+              "createdAt": "2026-06-05T15:07:16.000Z",
+              "updatedAt": "2026-06-05T15:07:16.000Z",
+              "uid": "35240-9067e7ad-4131-49b6-89e7-1810ad03f631"
+            },
+            {
+              "id": "179c8352-6980-4034-b63e-2d3649fa1d61",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/inputs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "inputs"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"details\": {\n    \"esse_50\": 91912369,\n    \"dolor_f\": false\n  }\n}",
+              "createdAt": "2026-06-05T15:07:16.000Z",
+              "updatedAt": "2026-06-05T15:07:16.000Z",
+              "uid": "35240-179c8352-6980-4034-b63e-2d3649fa1d61"
+            },
+            {
+              "id": "54f6f8e7-425c-4864-96c0-a56a8af80056",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/inputs",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "inputs"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"details\": {\n    \"esse_50\": 91912369,\n    \"dolor_f\": false\n  }\n}",
+              "createdAt": "2026-06-05T15:07:16.000Z",
+              "updatedAt": "2026-06-05T15:07:16.000Z",
+              "uid": "35240-54f6f8e7-425c-4864-96c0-a56a8af80056"
+            }
+          ],
+          "createdAt": "2026-06-05T15:07:16.000Z",
+          "updatedAt": "2026-06-05T15:07:16.000Z",
+          "uid": "35240-be7dee4a-a01e-4860-9015-1804fa70b4fa"
+        }
+      ],
+      "id": "60cafc51-ad10-4db3-9c73-7178bb0db63e",
+      "createdAt": "2026-06-05T15:07:16.000Z",
+      "updatedAt": "2026-06-05T15:07:16.000Z",
+      "uid": "35240-60cafc51-ad10-4db3-9c73-7178bb0db63e"
+    },
+    {
+      "name": "kickoff",
+      "item": [
+        {
+          "name": "Kick Off Crew Execution",
+          "id": "08edba24-a8ab-4485-9187-823d34446742",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"inputs\": {\n    \"magna527\": -93154793,\n    \"consequat_436\": true\n  },\n  \"meta\": {\n    \"quis_e_a\": -2393826.2149879336,\n    \"id_7\": \"Lorem nisi occaecat\"\n  },\n  \"taskWebhookUrl\": \"<uri>\",\n  \"stepWebhookUrl\": \"<uri>\",\n  \"crewWebhookUrl\": \"<uri>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/kickoff",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "kickoff"
+              ]
+            },
+            "description": "Launches a crew execution with the supplied inputs and optional webhook callback URLs.\nReturns a `kickoff_id` you can use with `GET /status/{kickoff_id}` to poll progress\nor to correlate webhook events.\n"
+          },
+          "response": [
+            {
+              "id": "a7e95029-6c64-4e82-8dd9-14f03f4852f7",
+              "name": "Kickoff accepted.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": {\n    \"magna527\": -93154793,\n    \"consequat_436\": true\n  },\n  \"meta\": {\n    \"quis_e_a\": -2393826.2149879336,\n    \"id_7\": \"Lorem nisi occaecat\"\n  },\n  \"taskWebhookUrl\": \"<uri>\",\n  \"stepWebhookUrl\": \"<uri>\",\n  \"crewWebhookUrl\": \"<uri>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/kickoff",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "kickoff"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"kickoff_id\": \"<uuid>\"\n}",
+              "createdAt": "2026-06-05T15:07:16.000Z",
+              "updatedAt": "2026-06-05T15:07:16.000Z",
+              "uid": "35240-a7e95029-6c64-4e82-8dd9-14f03f4852f7"
+            },
+            {
+              "id": "d00a8365-d441-4de6-aa39-6b2cfdf624de",
+              "name": "Invalid request body or missing required inputs.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": {\n    \"magna527\": -93154793,\n    \"consequat_436\": true\n  },\n  \"meta\": {\n    \"quis_e_a\": -2393826.2149879336,\n    \"id_7\": \"Lorem nisi occaecat\"\n  },\n  \"taskWebhookUrl\": \"<uri>\",\n  \"stepWebhookUrl\": \"<uri>\",\n  \"crewWebhookUrl\": \"<uri>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/kickoff",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "kickoff"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"details\": {\n    \"esse_50\": 91912369,\n    \"dolor_f\": false\n  }\n}",
+              "createdAt": "2026-06-05T15:07:16.000Z",
+              "updatedAt": "2026-06-05T15:07:16.000Z",
+              "uid": "35240-d00a8365-d441-4de6-aa39-6b2cfdf624de"
+            },
+            {
+              "id": "5c651e7f-1da5-4328-8f97-4f66e4270f3c",
+              "name": "Authentication failed; check Bearer token validity.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": {\n    \"magna527\": -93154793,\n    \"consequat_436\": true\n  },\n  \"meta\": {\n    \"quis_e_a\": -2393826.2149879336,\n    \"id_7\": \"Lorem nisi occaecat\"\n  },\n  \"taskWebhookUrl\": \"<uri>\",\n  \"stepWebhookUrl\": \"<uri>\",\n  \"crewWebhookUrl\": \"<uri>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/kickoff",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "kickoff"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"details\": {\n    \"esse_50\": 91912369,\n    \"dolor_f\": false\n  }\n}",
+              "createdAt": "2026-06-05T15:07:16.000Z",
+              "updatedAt": "2026-06-05T15:07:16.000Z",
+              "uid": "35240-5c651e7f-1da5-4328-8f97-4f66e4270f3c"
+            },
+            {
+              "id": "eda3f544-cff3-4647-9e79-210149716303",
+              "name": "Validation error with missing or malformed input fields.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": {\n    \"magna527\": -93154793,\n    \"consequat_436\": true\n  },\n  \"meta\": {\n    \"quis_e_a\": -2393826.2149879336,\n    \"id_7\": \"Lorem nisi occaecat\"\n  },\n  \"taskWebhookUrl\": \"<uri>\",\n  \"stepWebhookUrl\": \"<uri>\",\n  \"crewWebhookUrl\": \"<uri>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/kickoff",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "kickoff"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"details\": {\n    \"esse_50\": 91912369,\n    \"dolor_f\": false\n  }\n}",
+              "createdAt": "2026-06-05T15:07:16.000Z",
+              "updatedAt": "2026-06-05T15:07:16.000Z",
+              "uid": "35240-eda3f544-cff3-4647-9e79-210149716303"
+            },
+            {
+              "id": "c3eea8da-bd70-47c1-a54f-17145e93ab4f",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": {\n    \"magna527\": -93154793,\n    \"consequat_436\": true\n  },\n  \"meta\": {\n    \"quis_e_a\": -2393826.2149879336,\n    \"id_7\": \"Lorem nisi occaecat\"\n  },\n  \"taskWebhookUrl\": \"<uri>\",\n  \"stepWebhookUrl\": \"<uri>\",\n  \"crewWebhookUrl\": \"<uri>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/kickoff",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "kickoff"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"details\": {\n    \"esse_50\": 91912369,\n    \"dolor_f\": false\n  }\n}",
+              "createdAt": "2026-06-05T15:07:16.000Z",
+              "updatedAt": "2026-06-05T15:07:16.000Z",
+              "uid": "35240-c3eea8da-bd70-47c1-a54f-17145e93ab4f"
+            }
+          ],
+          "createdAt": "2026-06-05T15:07:16.000Z",
+          "updatedAt": "2026-06-05T15:07:16.000Z",
+          "uid": "35240-08edba24-a8ab-4485-9187-823d34446742"
+        }
+      ],
+      "id": "590d9328-8df1-43ee-a92c-5c3280683ff4",
+      "createdAt": "2026-06-05T15:07:16.000Z",
+      "updatedAt": "2026-06-05T15:07:16.000Z",
+      "uid": "35240-590d9328-8df1-43ee-a92c-5c3280683ff4"
+    },
+    {
+      "name": "status",
+      "item": [
+        {
+          "name": "{kickoff_id}",
+          "item": [
+            {
+              "name": "Get Kickoff Status",
+              "id": "988692d8-6b3f-4f59-ba51-383def405cbb",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/status/:kickoff_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "status",
+                    ":kickoff_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "128fa848-7f0a-4096-ac1b-8eaacfc40812",
+                      "key": "kickoff_id",
+                      "value": "<uuid>",
+                      "description": "(Required) UUID returned by `POST /kickoff`."
+                    }
+                  ]
+                },
+                "description": "Returns the current status of a crew execution identified by `kickoff_id`. The response\nshape varies by state: `running` includes current task and progress; `completed` includes\nper-task outputs and total execution time; `error` includes an error message.\n"
+              },
+              "response": [
+                {
+                  "id": "335b9c81-77bf-46c3-a129-8ca4d2061716",
+                  "name": "Execution status.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/status/:kickoff_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "status",
+                        ":kickoff_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "kickoff_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"running\",\n  \"current_task\": \"<string>\",\n  \"progress\": {\n    \"completed_tasks\": \"<integer>\",\n    \"total_tasks\": \"<integer>\"\n  }\n}",
+                  "createdAt": "2026-06-05T15:07:16.000Z",
+                  "updatedAt": "2026-06-05T15:07:16.000Z",
+                  "uid": "35240-335b9c81-77bf-46c3-a129-8ca4d2061716"
+                },
+                {
+                  "id": "802c8a48-1221-4449-b898-1b7c60a5a986",
+                  "name": "Authentication failed; check Bearer token validity.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/status/:kickoff_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "status",
+                        ":kickoff_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "kickoff_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"details\": {\n    \"esse_50\": 91912369,\n    \"dolor_f\": false\n  }\n}",
+                  "createdAt": "2026-06-05T15:07:16.000Z",
+                  "updatedAt": "2026-06-05T15:07:16.000Z",
+                  "uid": "35240-802c8a48-1221-4449-b898-1b7c60a5a986"
+                },
+                {
+                  "id": "47c98e1a-66dc-4107-820a-c7f49595f84d",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/status/:kickoff_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "status",
+                        ":kickoff_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "kickoff_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"details\": {\n    \"esse_50\": 91912369,\n    \"dolor_f\": false\n  }\n}",
+                  "createdAt": "2026-06-05T15:07:16.000Z",
+                  "updatedAt": "2026-06-05T15:07:16.000Z",
+                  "uid": "35240-47c98e1a-66dc-4107-820a-c7f49595f84d"
+                },
+                {
+                  "id": "34e9434c-84b1-4939-bb8a-909f41c31d0c",
+                  "name": "Internal server error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/status/:kickoff_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "status",
+                        ":kickoff_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "kickoff_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\",\n  \"details\": {\n    \"esse_50\": 91912369,\n    \"dolor_f\": false\n  }\n}",
+                  "createdAt": "2026-06-05T15:07:16.000Z",
+                  "updatedAt": "2026-06-05T15:07:16.000Z",
+                  "uid": "35240-34e9434c-84b1-4939-bb8a-909f41c31d0c"
+                }
+              ],
+              "createdAt": "2026-06-05T15:07:16.000Z",
+              "updatedAt": "2026-06-05T15:07:16.000Z",
+              "uid": "35240-988692d8-6b3f-4f59-ba51-383def405cbb"
+            }
+          ],
+          "id": "b9196085-1831-4772-a7e0-2039caa126dd",
+          "createdAt": "2026-06-05T15:07:16.000Z",
+          "updatedAt": "2026-06-05T15:07:16.000Z",
+          "uid": "35240-b9196085-1831-4772-a7e0-2039caa126dd"
+        }
+      ],
+      "id": "2e2a0375-b387-48f9-a0cb-a81048045c94",
+      "createdAt": "2026-06-05T15:07:16.000Z",
+      "updatedAt": "2026-06-05T15:07:16.000Z",
+      "uid": "35240-2e2a0375-b387-48f9-a0cb-a81048045c94"
+    },
+    {
+      "name": "resume",
+      "item": [
+        {
+          "name": "Resume Crew with Human Feedback",
+          "id": "f3aeffe9-4cfb-4436-b71c-1e92b88fb745",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"execution_id\": \"<uuid>\",\n  \"task_id\": \"<string>\",\n  \"human_feedback\": \"<string>\",\n  \"is_approve\": \"<boolean>\",\n  \"taskWebhookUrl\": \"<uri>\",\n  \"stepWebhookUrl\": \"<uri>\",\n  \"crewWebhookUrl\": \"<uri>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/resume",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "resume"
+              ]
+            },
+            "description": "Resumes a crew execution that paused for human-in-the-loop review. Supply\n`execution_id` and `task_id`, the reviewer's `human_feedback`, and `is_approve`\n(`true` to proceed, `false` to retry the task with the feedback as additional context).\n"
+          },
+          "response": [
+            {
+              "id": "a749dc3c-0bd2-4626-a838-8fd8420c538a",
+              "name": "Resume accepted.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"execution_id\": \"<uuid>\",\n  \"task_id\": \"<string>\",\n  \"human_feedback\": \"<string>\",\n  \"is_approve\": \"<boolean>\",\n  \"taskWebhookUrl\": \"<uri>\",\n  \"stepWebhookUrl\": \"<uri>\",\n  \"crewWebhookUrl\": \"<uri>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/resume",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "resume"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"status\": \"completed\",\n  \"message\": \"<string>\"\n}",
+              "createdAt": "2026-06-05T15:07:16.000Z",
+              "updatedAt": "2026-06-05T15:07:16.000Z",
+              "uid": "35240-a749dc3c-0bd2-4626-a838-8fd8420c538a"
+            },
+            {
+              "id": "316d3371-5ef9-47a8-a5da-22e4e52bc277",
+              "name": "Invalid request body or missing required inputs.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"execution_id\": \"<uuid>\",\n  \"task_id\": \"<string>\",\n  \"human_feedback\": \"<string>\",\n  \"is_approve\": \"<boolean>\",\n  \"taskWebhookUrl\": \"<uri>\",\n  \"stepWebhookUrl\": \"<uri>\",\n  \"crewWebhookUrl\": \"<uri>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/resume",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "resume"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"details\": {\n    \"esse_50\": 91912369,\n    \"dolor_f\": false\n  }\n}",
+              "createdAt": "2026-06-05T15:07:16.000Z",
+              "updatedAt": "2026-06-05T15:07:16.000Z",
+              "uid": "35240-316d3371-5ef9-47a8-a5da-22e4e52bc277"
+            },
+            {
+              "id": "279adb74-c99f-4c27-a23b-5c06f98bf2ba",
+              "name": "Authentication failed; check Bearer token validity.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"execution_id\": \"<uuid>\",\n  \"task_id\": \"<string>\",\n  \"human_feedback\": \"<string>\",\n  \"is_approve\": \"<boolean>\",\n  \"taskWebhookUrl\": \"<uri>\",\n  \"stepWebhookUrl\": \"<uri>\",\n  \"crewWebhookUrl\": \"<uri>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/resume",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "resume"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"details\": {\n    \"esse_50\": 91912369,\n    \"dolor_f\": false\n  }\n}",
+              "createdAt": "2026-06-05T15:07:16.000Z",
+              "updatedAt": "2026-06-05T15:07:16.000Z",
+              "uid": "35240-279adb74-c99f-4c27-a23b-5c06f98bf2ba"
+            },
+            {
+              "id": "a2e003c9-1a43-408b-bea8-82f7b4a5d891",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"execution_id\": \"<uuid>\",\n  \"task_id\": \"<string>\",\n  \"human_feedback\": \"<string>\",\n  \"is_approve\": \"<boolean>\",\n  \"taskWebhookUrl\": \"<uri>\",\n  \"stepWebhookUrl\": \"<uri>\",\n  \"crewWebhookUrl\": \"<uri>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/resume",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "resume"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"details\": {\n    \"esse_50\": 91912369,\n    \"dolor_f\": false\n  }\n}",
+              "createdAt": "2026-06-05T15:07:16.000Z",
+              "updatedAt": "2026-06-05T15:07:16.000Z",
+              "uid": "35240-a2e003c9-1a43-408b-bea8-82f7b4a5d891"
+            },
+            {
+              "id": "58a5c42a-65b5-4f27-9f90-ef5438651e1d",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"execution_id\": \"<uuid>\",\n  \"task_id\": \"<string>\",\n  \"human_feedback\": \"<string>\",\n  \"is_approve\": \"<boolean>\",\n  \"taskWebhookUrl\": \"<uri>\",\n  \"stepWebhookUrl\": \"<uri>\",\n  \"crewWebhookUrl\": \"<uri>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/resume",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "resume"
+                  ]
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"details\": {\n    \"esse_50\": 91912369,\n    \"dolor_f\": false\n  }\n}",
+              "createdAt": "2026-06-05T15:07:16.000Z",
+              "updatedAt": "2026-06-05T15:07:16.000Z",
+              "uid": "35240-58a5c42a-65b5-4f27-9f90-ef5438651e1d"
+            }
+          ],
+          "createdAt": "2026-06-05T15:07:16.000Z",
+          "updatedAt": "2026-06-05T15:07:16.000Z",
+          "uid": "35240-f3aeffe9-4cfb-4436-b71c-1e92b88fb745"
+        }
+      ],
+      "id": "a97e3034-52d4-42ac-ae83-380f09dbc551",
+      "createdAt": "2026-06-05T15:07:16.000Z",
+      "updatedAt": "2026-06-05T15:07:16.000Z",
+      "uid": "35240-a97e3034-52d4-42ac-ae83-380f09dbc551"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "crewName",
+      "value": "your-crew-name"
+    },
+    {
+      "key": "baseUrl",
+      "value": "https://{{crewName}}.crewai.com"
+    }
+  ]
+}
