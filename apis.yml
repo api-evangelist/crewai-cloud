@@ -104,29 +104,26 @@ apis:
 common:
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/crewai-cloud/overview
-  - type: ArazzoWorkflows
-    url: arazzo/
-    workflows:
-    - url: arazzo/crewai-cloud-discover-inputs-and-kickoff-workflow.yml
-      name: CrewAI AMP Discover Inputs and Kick Off
-      summary: Discover the inputs a crew expects, then launch an execution with them.
-    - url: arazzo/crewai-cloud-full-run-with-result-workflow.yml
-      name: CrewAI AMP Full Run With Result
-      summary: Discover inputs, kick off a crew, poll to completion, and return the result.
-    - url: arazzo/crewai-cloud-kickoff-and-poll-until-complete-workflow.yml
-      name: CrewAI AMP Kick Off and Poll Until Complete
-      summary: Launch a crew execution and poll its status until it completes or errors.
-    - url: arazzo/crewai-cloud-kickoff-with-hitl-review-workflow.yml
-      name: CrewAI AMP Kick Off With Human-in-the-Loop Review
-      summary: Kick off a crew, poll until it pauses for review, deliver feedback, and poll again.
-    - url: arazzo/crewai-cloud-resume-paused-execution-workflow.yml
-      name: CrewAI AMP Resume a Paused Execution
-      summary: Inspect an existing execution, deliver human feedback, then poll until it settles.
+  - type: Arazzo
+    url: arazzo/crewai-cloud-discover-inputs-and-kickoff-workflow.yml
+    name: CrewAI AMP Discover Inputs and Kick Off
+  - type: Arazzo
+    url: arazzo/crewai-cloud-full-run-with-result-workflow.yml
+    name: CrewAI AMP Full Run With Result
+  - type: Arazzo
+    url: arazzo/crewai-cloud-kickoff-and-poll-until-complete-workflow.yml
+    name: CrewAI AMP Kick Off and Poll Until Complete
+  - type: Arazzo
+    url: arazzo/crewai-cloud-kickoff-with-hitl-review-workflow.yml
+    name: CrewAI AMP Kick Off With Human-in-the-Loop Review
+  - type: Arazzo
+    url: arazzo/crewai-cloud-resume-paused-execution-workflow.yml
+    name: CrewAI AMP Resume a Paused Execution
   - type: Website
     url: https://www.crewai.com
   - type: Portal
     url: https://www.crewai.com/enterprise
-  - type: SignUp
+  - type: Signup
     url: https://app.crewai.com
   - type: Console
     url: https://app.crewai.com
@@ -134,7 +131,7 @@ common:
     url: https://docs.crewai.com/en/enterprise/introduction
   - type: Documentation
     url: https://docs.crewai.com/
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://docs.crewai.com/llms.txt
   - type: GettingStarted
     url: https://docs.crewai.com/en/enterprise/guides/deploy-to-amp
@@ -144,19 +141,19 @@ common:
     url: https://docs.crewai.com/en/api-reference/introduction
   - type: Webhooks
     url: https://docs.crewai.com/en/enterprise/features/webhook-streaming
-  - type: SDK
+  - type: SDKs
     name: CrewAI Python Framework
     url: https://github.com/crewAIInc/crewai
-  - type: SDK
+  - type: SDKs
     name: CrewAI Tools
     url: https://github.com/crewAIInc/crewai-tools
   - type: CLI
     name: CrewAI CLI
     url: https://docs.crewai.com/en/concepts/cli
-  - type: Tool
+  - type: Tools
     name: Crew Studio (Visual Editor)
     url: https://docs.crewai.com/en/enterprise/features/crew-studio
-  - type: Tool
+  - type: Tools
     name: CrewAI Enterprise MCP Server
     url: https://github.com/crewAIInc/enterprise-mcp-server
   - type: GitHubOrganization
@@ -165,7 +162,7 @@ common:
     url: https://www.linkedin.com/company/crewai-inc
   - type: Blog
     url: https://blog.crewai.com
-  - type: Forum
+  - type: Forums
     url: https://community.crewai.com
   - type: StatusPage
     url: https://status.crewai.com
