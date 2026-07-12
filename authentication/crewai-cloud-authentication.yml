@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/crewai-amp-rest-api-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: opaque
+  description: |-
+    Bearer token from the AMP dashboard Status tab. Use either an organization-level
+    Bearer Token (full crew operations) or a User Bearer Token (user-scoped access).
+  sources:
+  - openapi/crewai-amp-rest-api-openapi.yml

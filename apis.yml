@@ -102,6 +102,12 @@ apis:
       - type: Documentation
         url: https://docs.crewai.com/en/enterprise/guides/custom-mcp-server
 common:
+  - type: VulnerabilityDisclosure
+    url: security/crewai-cloud-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/crewai-cloud-domain-security.yml
+  - type: Authentication
+    url: authentication/crewai-cloud-authentication.yml
   - type: PostmanWorkspace
     url: https://www.postman.com/kinlaneapi/crewai-cloud/overview
   - type: Arazzo
