@@ -1,0 +1,190 @@
+openapi: 3.1.0
+info:
+  title: CrewAI AMP REST Inputs Kickoff API
+  version: '1.0'
+  description: 'Per-crew REST API exposed by every crew deployed to CrewAI AMP (Cloud or Factory).
+
+
+    Each deployed crew is reachable at its own hostname
+
+    (`https://{crew-name}.crewai.com` for AMP Cloud, or your private hostname for AMP Factory)
+
+    and supports four operations:
+
+
+    - `GET  /inputs` — list the input parameter names this crew expects.
+
+    - `POST /kickoff` — launch a crew execution and return a `kickoff_id`.
+
+    - `GET  /status/{kickoff_id}` — poll execution status and retrieve results.
+
+    - `POST /resume` — submit human feedback (approve or retry) for a HITL-paused task.
+
+
+    All endpoints require Bearer token authentication. Tokens are issued from the AMP dashboard
+
+    Status tab and come in two flavors: organization-level (full crew operations) and user-scoped
+
+    (limited permissions).
+
+    '
+  contact:
+    name: CrewAI Support
+    url: https://docs.crewai.com/en/api-reference/introduction
+  license:
+    name: Commercial
+    url: https://www.crewai.com/legal/terms-of-use
+servers:
+- url: https://{crewName}.crewai.com
+  description: AMP Cloud per-crew endpoint
+  variables:
+    crewName:
+      default: your-crew-name
+      description: The crew slug from the AMP dashboard.
+- url: https://{crewName}.{factoryHost}
+  description: AMP Factory (self-hosted) per-crew endpoint
+  variables:
+    crewName:
+      default: your-crew-name
+    factoryHost:
+      default: amp.example.com
+security:
+- bearerAuth: []
+tags:
+- name: Kickoff
+  description: Launch a crew execution.
+paths:
+  /kickoff:
+    post:
+      tags:
+      - Kickoff
+      operationId: kickoffCrew
+      summary: Kick Off Crew Execution
+      description: 'Launches a crew execution with the supplied inputs and optional webhook callback URLs.
+
+        Returns a `kickoff_id` you can use with `GET /status/{kickoff_id}` to poll progress
+
+        or to correlate webhook events.
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KickoffRequest'
+            examples:
+              minimal:
+                summary: Minimal kickoff
+                value:
+                  inputs:
+                    topic: Open banking in Brazil
+              webhooks:
+                summary: Kickoff with all three webhooks
+                value:
+                  inputs:
+                    topic: Open banking in Brazil
+                    audience: Banking executives
+                  meta:
+                    requestId: 7a2c-9f1b
+                  taskWebhookUrl: https://hooks.example.com/crewai/task
+                  stepWebhookUrl: https://hooks.example.com/crewai/step
+                  crewWebhookUrl: https://hooks.example.com/crewai/crew
+      responses:
+        '200':
+          description: Kickoff accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KickoffResponse'
+              examples:
+                accepted:
+                  value:
+                    kickoff_id: abcd1234-5678-90ef-ghij-klmnopqrstuv
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/ValidationError'
+        '500':
+          $ref: '#/components/responses/ServerError'
+components:
+  responses:
+    ValidationError:
+      description: Validation error with missing or malformed input fields.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ServerError:
+      description: Internal server error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed; check Bearer token validity.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request body or missing required inputs.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    KickoffResponse:
+      type: object
+      required:
+      - kickoff_id
+      properties:
+        kickoff_id:
+          type: string
+          format: uuid
+          description: Unique identifier for the kickoff. Use with `/status/{kickoff_id}`.
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
+    KickoffRequest:
+      type: object
+      required:
+      - inputs
+      properties:
+        inputs:
+          type: object
+          description: Key-value pairs of all required inputs for the crew.
+          additionalProperties: true
+        meta:
+          type: object
+          description: Additional metadata to attach to the kickoff (echoed in events).
+          additionalProperties: true
+        taskWebhookUrl:
+          type: string
+          format: uri
+          description: Callback URL invoked after each task completes.
+        stepWebhookUrl:
+          type: string
+          format: uri
+          description: Callback URL invoked after each agent thought or action.
+        crewWebhookUrl:
+          type: string
+          format: uri
+          description: Callback URL invoked when the crew execution completes.
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: opaque
+      description: 'Bearer token from the AMP dashboard Status tab. Use either an organization-level
+
+        Bearer Token (full crew operations) or a User Bearer Token (user-scoped access).
+
+        '

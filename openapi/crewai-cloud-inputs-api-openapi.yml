@@ -1,0 +1,137 @@
+openapi: 3.1.0
+info:
+  title: CrewAI AMP REST Inputs API
+  version: '1.0'
+  description: 'Per-crew REST API exposed by every crew deployed to CrewAI AMP (Cloud or Factory).
+
+
+    Each deployed crew is reachable at its own hostname
+
+    (`https://{crew-name}.crewai.com` for AMP Cloud, or your private hostname for AMP Factory)
+
+    and supports four operations:
+
+
+    - `GET  /inputs` — list the input parameter names this crew expects.
+
+    - `POST /kickoff` — launch a crew execution and return a `kickoff_id`.
+
+    - `GET  /status/{kickoff_id}` — poll execution status and retrieve results.
+
+    - `POST /resume` — submit human feedback (approve or retry) for a HITL-paused task.
+
+
+    All endpoints require Bearer token authentication. Tokens are issued from the AMP dashboard
+
+    Status tab and come in two flavors: organization-level (full crew operations) and user-scoped
+
+    (limited permissions).
+
+    '
+  contact:
+    name: CrewAI Support
+    url: https://docs.crewai.com/en/api-reference/introduction
+  license:
+    name: Commercial
+    url: https://www.crewai.com/legal/terms-of-use
+servers:
+- url: https://{crewName}.crewai.com
+  description: AMP Cloud per-crew endpoint
+  variables:
+    crewName:
+      default: your-crew-name
+      description: The crew slug from the AMP dashboard.
+- url: https://{crewName}.{factoryHost}
+  description: AMP Factory (self-hosted) per-crew endpoint
+  variables:
+    crewName:
+      default: your-crew-name
+    factoryHost:
+      default: amp.example.com
+security:
+- bearerAuth: []
+tags:
+- name: Inputs
+  description: Discover the input parameters this crew accepts.
+paths:
+  /inputs:
+    get:
+      tags:
+      - Inputs
+      operationId: listInputs
+      summary: List Required Crew Inputs
+      description: 'Retrieves the list of input parameter names this crew expects when you kick it off.
+
+        Use this to discover the keys you must populate in the `inputs` object on `POST /kickoff`.
+
+        '
+      responses:
+        '200':
+          description: Input parameter list returned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InputsResponse'
+              examples:
+                research:
+                  summary: Research crew inputs
+                  value:
+                    inputs:
+                    - topic
+                    - target_audience
+                    - depth
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+components:
+  responses:
+    ServerError:
+      description: Internal server error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed; check Bearer token validity.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    InputsResponse:
+      type: object
+      required:
+      - inputs
+      properties:
+        inputs:
+          type: array
+          description: List of input parameter names the crew expects.
+          items:
+            type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: opaque
+      description: 'Bearer token from the AMP dashboard Status tab. Use either an organization-level
+
+        Bearer Token (full crew operations) or a User Bearer Token (user-scoped access).
+
+        '

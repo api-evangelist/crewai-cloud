@@ -1,0 +1,198 @@
+openapi: 3.1.0
+info:
+  title: CrewAI AMP REST Inputs Resume API
+  version: '1.0'
+  description: 'Per-crew REST API exposed by every crew deployed to CrewAI AMP (Cloud or Factory).
+
+
+    Each deployed crew is reachable at its own hostname
+
+    (`https://{crew-name}.crewai.com` for AMP Cloud, or your private hostname for AMP Factory)
+
+    and supports four operations:
+
+
+    - `GET  /inputs` — list the input parameter names this crew expects.
+
+    - `POST /kickoff` — launch a crew execution and return a `kickoff_id`.
+
+    - `GET  /status/{kickoff_id}` — poll execution status and retrieve results.
+
+    - `POST /resume` — submit human feedback (approve or retry) for a HITL-paused task.
+
+
+    All endpoints require Bearer token authentication. Tokens are issued from the AMP dashboard
+
+    Status tab and come in two flavors: organization-level (full crew operations) and user-scoped
+
+    (limited permissions).
+
+    '
+  contact:
+    name: CrewAI Support
+    url: https://docs.crewai.com/en/api-reference/introduction
+  license:
+    name: Commercial
+    url: https://www.crewai.com/legal/terms-of-use
+servers:
+- url: https://{crewName}.crewai.com
+  description: AMP Cloud per-crew endpoint
+  variables:
+    crewName:
+      default: your-crew-name
+      description: The crew slug from the AMP dashboard.
+- url: https://{crewName}.{factoryHost}
+  description: AMP Factory (self-hosted) per-crew endpoint
+  variables:
+    crewName:
+      default: your-crew-name
+    factoryHost:
+      default: amp.example.com
+security:
+- bearerAuth: []
+tags:
+- name: Resume
+  description: Deliver human-in-the-loop feedback on a paused task.
+paths:
+  /resume:
+    post:
+      tags:
+      - Resume
+      operationId: resumeKickoff
+      summary: Resume Crew with Human Feedback
+      description: 'Resumes a crew execution that paused for human-in-the-loop review. Supply
+
+        `execution_id` and `task_id`, the reviewer''s `human_feedback`, and `is_approve`
+
+        (`true` to proceed, `false` to retry the task with the feedback as additional context).
+
+        '
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResumeRequest'
+            examples:
+              approve:
+                summary: Approve the task output
+                value:
+                  execution_id: abcd1234-5678-90ef-ghij-klmnopqrstuv
+                  task_id: t-3
+                  human_feedback: Looks good, ship it.
+                  is_approve: true
+              retry:
+                summary: Retry with feedback
+                value:
+                  execution_id: abcd1234-5678-90ef-ghij-klmnopqrstuv
+                  task_id: t-3
+                  human_feedback: Tone is off — make it more formal.
+                  is_approve: false
+      responses:
+        '200':
+          description: Resume accepted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResumeResponse'
+              examples:
+                resumed:
+                  value:
+                    status: resumed
+                    message: Execution resumed at task t-3
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+components:
+  responses:
+    ServerError:
+      description: Internal server error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed; check Bearer token validity.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request body or missing required inputs.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
+    ResumeRequest:
+      type: object
+      required:
+      - execution_id
+      - task_id
+      - human_feedback
+      - is_approve
+      properties:
+        execution_id:
+          type: string
+          format: uuid
+          description: The `kickoff_id` returned by `/kickoff`.
+        task_id:
+          type: string
+          description: Identifier of the task awaiting human feedback.
+        human_feedback:
+          type: string
+          description: Feedback to incorporate as additional context.
+        is_approve:
+          type: boolean
+          description: '`true` to proceed; `false` to retry the task with the feedback.'
+        taskWebhookUrl:
+          type: string
+          format: uri
+        stepWebhookUrl:
+          type: string
+          format: uri
+        crewWebhookUrl:
+          type: string
+          format: uri
+    ResumeResponse:
+      type: object
+      required:
+      - status
+      properties:
+        status:
+          type: string
+          enum:
+          - resumed
+          - retrying
+          - completed
+        message:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: opaque
+      description: 'Bearer token from the AMP dashboard Status tab. Use either an organization-level
+
+        Bearer Token (full crew operations) or a User Bearer Token (user-scoped access).
+
+        '

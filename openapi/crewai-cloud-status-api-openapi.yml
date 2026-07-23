@@ -1,0 +1,239 @@
+openapi: 3.1.0
+info:
+  title: CrewAI AMP REST Inputs Status API
+  version: '1.0'
+  description: 'Per-crew REST API exposed by every crew deployed to CrewAI AMP (Cloud or Factory).
+
+
+    Each deployed crew is reachable at its own hostname
+
+    (`https://{crew-name}.crewai.com` for AMP Cloud, or your private hostname for AMP Factory)
+
+    and supports four operations:
+
+
+    - `GET  /inputs` — list the input parameter names this crew expects.
+
+    - `POST /kickoff` — launch a crew execution and return a `kickoff_id`.
+
+    - `GET  /status/{kickoff_id}` — poll execution status and retrieve results.
+
+    - `POST /resume` — submit human feedback (approve or retry) for a HITL-paused task.
+
+
+    All endpoints require Bearer token authentication. Tokens are issued from the AMP dashboard
+
+    Status tab and come in two flavors: organization-level (full crew operations) and user-scoped
+
+    (limited permissions).
+
+    '
+  contact:
+    name: CrewAI Support
+    url: https://docs.crewai.com/en/api-reference/introduction
+  license:
+    name: Commercial
+    url: https://www.crewai.com/legal/terms-of-use
+servers:
+- url: https://{crewName}.crewai.com
+  description: AMP Cloud per-crew endpoint
+  variables:
+    crewName:
+      default: your-crew-name
+      description: The crew slug from the AMP dashboard.
+- url: https://{crewName}.{factoryHost}
+  description: AMP Factory (self-hosted) per-crew endpoint
+  variables:
+    crewName:
+      default: your-crew-name
+    factoryHost:
+      default: amp.example.com
+security:
+- bearerAuth: []
+tags:
+- name: Status
+  description: Inspect execution progress and retrieve results.
+paths:
+  /status/{kickoff_id}:
+    get:
+      tags:
+      - Status
+      operationId: getKickoffStatus
+      summary: Get Kickoff Status
+      description: 'Returns the current status of a crew execution identified by `kickoff_id`. The response
+
+        shape varies by state: `running` includes current task and progress; `completed` includes
+
+        per-task outputs and total execution time; `error` includes an error message.
+
+        '
+      parameters:
+      - in: path
+        name: kickoff_id
+        required: true
+        description: UUID returned by `POST /kickoff`.
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Execution status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+              examples:
+                running:
+                  summary: Running execution
+                  value:
+                    status: running
+                    current_task: Research market trends
+                    progress:
+                      completed_tasks: 2
+                      total_tasks: 5
+                completed:
+                  summary: Completed execution
+                  value:
+                    status: completed
+                    result:
+                      output: Final report text...
+                      tasks:
+                      - task_id: t-1
+                        agent: Researcher
+                        output: Market summary...
+                        execution_time: 12.4
+                    execution_time: 64.1
+                error:
+                  summary: Errored execution
+                  value:
+                    status: error
+                    error: Tool timeout in step 4
+                    execution_time: 41.0
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+components:
+  schemas:
+    StatusCompleted:
+      type: object
+      required:
+      - status
+      properties:
+        status:
+          type: string
+          enum:
+          - completed
+        result:
+          type: object
+          properties:
+            output:
+              type: string
+              description: Final aggregated crew output.
+            tasks:
+              type: array
+              items:
+                $ref: '#/components/schemas/TaskResult'
+        execution_time:
+          type: number
+          format: double
+          description: Total execution time in seconds.
+    StatusError:
+      type: object
+      required:
+      - status
+      properties:
+        status:
+          type: string
+          enum:
+          - error
+        error:
+          type: string
+          description: Human-readable error message.
+        execution_time:
+          type: number
+          format: double
+    StatusRunning:
+      type: object
+      required:
+      - status
+      properties:
+        status:
+          type: string
+          enum:
+          - running
+        current_task:
+          type: string
+          description: Name or id of the task currently executing.
+        progress:
+          type: object
+          properties:
+            completed_tasks:
+              type: integer
+              minimum: 0
+            total_tasks:
+              type: integer
+              minimum: 0
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
+    TaskResult:
+      type: object
+      properties:
+        task_id:
+          type: string
+        agent:
+          type: string
+          description: Agent role that executed the task.
+        output:
+          type: string
+        execution_time:
+          type: number
+          format: double
+    StatusResponse:
+      oneOf:
+      - $ref: '#/components/schemas/StatusRunning'
+      - $ref: '#/components/schemas/StatusCompleted'
+      - $ref: '#/components/schemas/StatusError'
+      discriminator:
+        propertyName: status
+        mapping:
+          running: '#/components/schemas/StatusRunning'
+          completed: '#/components/schemas/StatusCompleted'
+          error: '#/components/schemas/StatusError'
+  responses:
+    ServerError:
+      description: Internal server error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed; check Bearer token validity.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: opaque
+      description: 'Bearer token from the AMP dashboard Status tab. Use either an organization-level
+
+        Bearer Token (full crew operations) or a User Bearer Token (user-scoped access).
+
+        '
