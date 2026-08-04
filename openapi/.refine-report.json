@@ -1,0 +1,20 @@
+{
+  "provider": "crewai-cloud",
+  "sources": [
+    "crewai-cloud-inputs-api-openapi.yml",
+    "crewai-cloud-kickoff-api-openapi.yml",
+    "crewai-cloud-resume-api-openapi.yml",
+    "crewai-cloud-status-api-openapi.yml"
+  ],
+  "outputs": [
+    "crewai-cloud-inputs-api-openapi.yml",
+    "crewai-cloud-kickoff-api-openapi.yml",
+    "crewai-cloud-resume-api-openapi.yml",
+    "crewai-cloud-status-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
