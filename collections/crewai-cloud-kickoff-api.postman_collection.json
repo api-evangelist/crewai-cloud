@@ -1,0 +1,395 @@
+{
+  "item": [
+    {
+      "id": "3307ceb7-468e-42cd-9a80-c9364953f3af",
+      "name": "Kickoff",
+      "description": {
+        "content": "Launch a crew execution.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7022d08f-c2c2-4c6f-85b5-6bd684b5640a",
+          "name": "Kick Off Crew Execution",
+          "request": {
+            "name": "Kick Off Crew Execution",
+            "description": {
+              "content": "Launches a crew execution with the supplied inputs and optional webhook callback URLs.\nReturns a `kickoff_id` you can use with `GET /status/{kickoff_id}` to poll progress\nor to correlate webhook events.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "kickoff"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The crew slug from the AMP dashboard.",
+                  "type": "any",
+                  "value": "{{crewName}}",
+                  "key": "crewName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"inputs\": {\n    \"key_0\": \"string\"\n  },\n  \"meta\": {\n    \"key_0\": 1511\n  },\n  \"taskWebhookUrl\": \"<uri>\",\n  \"stepWebhookUrl\": \"<uri>\",\n  \"crewWebhookUrl\": \"<uri>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3c2b5a24-9d25-4dea-b1ec-dfa402509837",
+              "name": "Kickoff accepted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kickoff"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": {\n    \"topic\": \"Open banking in Brazil\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"kickoff_id\": \"abcd1234-5678-90ef-ghij-klmnopqrstuv\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "511666bf-3610-4ceb-9c9c-5c3b26db67ff",
+              "name": "Invalid request body or missing required inputs.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kickoff"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": {\n    \"topic\": \"Open banking in Brazil\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"details\": {\n    \"key_0\": 7070,\n    \"key_1\": 6644,\n    \"key_2\": 3485,\n    \"key_3\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "03a003de-1e9a-4e41-9fed-fb9c3905c035",
+              "name": "Authentication failed; check Bearer token validity.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kickoff"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": {\n    \"topic\": \"Open banking in Brazil\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"details\": {\n    \"key_0\": 7070,\n    \"key_1\": 6644,\n    \"key_2\": 3485,\n    \"key_3\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e7f443ab-2d80-4694-b3e3-064270ebaefc",
+              "name": "Validation error with missing or malformed input fields.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kickoff"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": {\n    \"topic\": \"Open banking in Brazil\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"details\": {\n    \"key_0\": 7070,\n    \"key_1\": 6644,\n    \"key_2\": 3485,\n    \"key_3\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c69a5986-da13-4f54-9e37-907a84d65804",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "kickoff"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"inputs\": {\n    \"topic\": \"Open banking in Brazil\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"details\": {\n    \"key_0\": 7070,\n    \"key_1\": 6644,\n    \"key_2\": 3485,\n    \"key_3\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The crew slug from the AMP dashboard.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-crew-name",
+      "key": "crewName"
+    },
+    {
+      "type": "string",
+      "value": "https://{{crewName}}.crewai.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "d1a4e122-85d4-4580-a0cf-d78a88c72438",
+    "name": "CrewAI AMP REST Inputs Kickoff API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Per-crew REST API exposed by every crew deployed to CrewAI AMP (Cloud or Factory).\n\nEach deployed crew is reachable at its own hostname\n(`https://{crew-name}.crewai.com` for AMP Cloud, or your private hostname for AMP Factory)\nand supports four operations:\n\n- `GET  /inputs` — list the input parameter names this crew expects.\n- `POST /kickoff` — launch a crew execution and return a `kickoff_id`.\n- `GET  /status/{kickoff_id}` — poll execution status and retrieve results.\n- `POST /resume` — submit human feedback (approve or retry) for a HITL-paused task.\n\nAll endpoints require Bearer token authentication. Tokens are issued from the AMP dashboard\nStatus tab and come in two flavors: organization-level (full crew operations) and user-scoped\n(limited permissions).\n\n\nContact Support:\n Name: CrewAI Support",
+      "type": "text/plain"
+    }
+  }
+}

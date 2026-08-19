@@ -1,0 +1,332 @@
+{
+  "item": [
+    {
+      "id": "2460e17a-15d6-42d6-9d57-19d4213c6bcb",
+      "name": "Status",
+      "description": {
+        "content": "Inspect execution progress and retrieve results.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "034d1be9-bf00-4ecd-a842-c961af0cef0a",
+          "name": "Get Kickoff Status",
+          "request": {
+            "name": "Get Kickoff Status",
+            "description": {
+              "content": "Returns the current status of a crew execution identified by `kickoff_id`. The response\nshape varies by state: `running` includes current task and progress; `completed` includes\nper-task outputs and total execution time; `error` includes an error message.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "status",
+                ":kickoff_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "kickoff_id",
+                  "description": "(Required) UUID returned by `POST /kickoff`."
+                },
+                {
+                  "description": "The crew slug from the AMP dashboard.",
+                  "type": "any",
+                  "value": "{{crewName}}",
+                  "key": "crewName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e31df7ab-44c8-47d1-9b2a-eac52539295a",
+              "name": "Execution status.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    ":kickoff_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "kickoff_id",
+                      "description": "(Required) UUID returned by `POST /kickoff`."
+                    },
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"running\",\n  \"current_task\": \"Research market trends\",\n  \"progress\": {\n    \"completed_tasks\": 2,\n    \"total_tasks\": 5\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d67fffb8-87b3-4cc9-9338-6efbd81e18de",
+              "name": "Authentication failed; check Bearer token validity.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    ":kickoff_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "kickoff_id",
+                      "description": "(Required) UUID returned by `POST /kickoff`."
+                    },
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"details\": {\n    \"key_0\": 4588.130378587645,\n    \"key_1\": true,\n    \"key_2\": 5108.588535612479\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0e4033d0-0493-4f35-8129-811f2f2e41bb",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    ":kickoff_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "kickoff_id",
+                      "description": "(Required) UUID returned by `POST /kickoff`."
+                    },
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"details\": {\n    \"key_0\": 4588.130378587645,\n    \"key_1\": true,\n    \"key_2\": 5108.588535612479\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d79579f2-0040-4f3f-bcc9-608818481ffb",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "status",
+                    ":kickoff_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "kickoff_id",
+                      "description": "(Required) UUID returned by `POST /kickoff`."
+                    },
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"details\": {\n    \"key_0\": 4588.130378587645,\n    \"key_1\": true,\n    \"key_2\": 5108.588535612479\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The crew slug from the AMP dashboard.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-crew-name",
+      "key": "crewName"
+    },
+    {
+      "type": "string",
+      "value": "https://{{crewName}}.crewai.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4734fcf1-b192-48e6-a811-4dfc56ede9e0",
+    "name": "CrewAI AMP REST Inputs Status API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Per-crew REST API exposed by every crew deployed to CrewAI AMP (Cloud or Factory).\n\nEach deployed crew is reachable at its own hostname\n(`https://{crew-name}.crewai.com` for AMP Cloud, or your private hostname for AMP Factory)\nand supports four operations:\n\n- `GET  /inputs` — list the input parameter names this crew expects.\n- `POST /kickoff` — launch a crew execution and return a `kickoff_id`.\n- `GET  /status/{kickoff_id}` — poll execution status and retrieve results.\n- `POST /resume` — submit human feedback (approve or retry) for a HITL-paused task.\n\nAll endpoints require Bearer token authentication. Tokens are issued from the AMP dashboard\nStatus tab and come in two flavors: organization-level (full crew operations) and user-scoped\n(limited permissions).\n\n\nContact Support:\n Name: CrewAI Support",
+      "type": "text/plain"
+    }
+  }
+}

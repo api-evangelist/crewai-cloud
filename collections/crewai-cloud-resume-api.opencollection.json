@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CrewAI AMP REST Inputs Resume API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Resume",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Resume Crew with Human Feedback",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{crewName}.crewai.com/resume",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Resumes a crew execution that paused for human-in-the-loop review. Supply\n`execution_id` and `task_id`, the reviewer's `human_feedback`, and `is_approve`\n(`true` to proceed, `false` to retry the task with the feedback as additional context).\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

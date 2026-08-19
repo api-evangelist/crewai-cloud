@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CrewAI AMP REST Inputs API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Inputs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Required Crew Inputs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{crewName}.crewai.com/inputs"
+          },
+          "docs": "Retrieves the list of input parameter names this crew expects when you kick it off.\nUse this to discover the keys you must populate in the `inputs` object on `POST /kickoff`.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

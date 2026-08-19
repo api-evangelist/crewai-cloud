@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CrewAI AMP REST Inputs Kickoff API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Kickoff",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Kick Off Crew Execution",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{crewName}.crewai.com/kickoff",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Launches a crew execution with the supplied inputs and optional webhook callback URLs.\nReturns a `kickoff_id` you can use with `GET /status/{kickoff_id}` to poll progress\nor to correlate webhook events.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

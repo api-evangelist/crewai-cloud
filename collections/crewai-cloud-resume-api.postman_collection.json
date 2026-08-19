@@ -1,0 +1,395 @@
+{
+  "item": [
+    {
+      "id": "b4af5f1d-4d6d-4ee8-be65-01b6c57bc53a",
+      "name": "Resume",
+      "description": {
+        "content": "Deliver human-in-the-loop feedback on a paused task.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3022dc44-16cc-4585-a961-6715ea50f867",
+          "name": "Resume Crew with Human Feedback",
+          "request": {
+            "name": "Resume Crew with Human Feedback",
+            "description": {
+              "content": "Resumes a crew execution that paused for human-in-the-loop review. Supply\n`execution_id` and `task_id`, the reviewer's `human_feedback`, and `is_approve`\n(`true` to proceed, `false` to retry the task with the feedback as additional context).\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "resume"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The crew slug from the AMP dashboard.",
+                  "type": "any",
+                  "value": "{{crewName}}",
+                  "key": "crewName"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"execution_id\": \"<uuid>\",\n  \"task_id\": \"<string>\",\n  \"human_feedback\": \"<string>\",\n  \"is_approve\": \"<boolean>\",\n  \"taskWebhookUrl\": \"<uri>\",\n  \"stepWebhookUrl\": \"<uri>\",\n  \"crewWebhookUrl\": \"<uri>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "52491235-d199-4f6a-8e33-7a0c509d93a1",
+              "name": "Resume accepted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"execution_id\": \"abcd1234-5678-90ef-ghij-klmnopqrstuv\",\n  \"task_id\": \"t-3\",\n  \"human_feedback\": \"Looks good, ship it.\",\n  \"is_approve\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"resumed\",\n  \"message\": \"Execution resumed at task t-3\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8680a32-fff5-46af-801d-54043052a889",
+              "name": "Invalid request body or missing required inputs.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"execution_id\": \"abcd1234-5678-90ef-ghij-klmnopqrstuv\",\n  \"task_id\": \"t-3\",\n  \"human_feedback\": \"Looks good, ship it.\",\n  \"is_approve\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"details\": {\n    \"key_0\": 8336,\n    \"key_1\": false,\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0d3deaf9-6df0-472b-89bc-147e8ae5ae36",
+              "name": "Authentication failed; check Bearer token validity.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"execution_id\": \"abcd1234-5678-90ef-ghij-klmnopqrstuv\",\n  \"task_id\": \"t-3\",\n  \"human_feedback\": \"Looks good, ship it.\",\n  \"is_approve\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"details\": {\n    \"key_0\": 8336,\n    \"key_1\": false,\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8139b5ef-4762-452d-b33b-cc2704b7a7fe",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"execution_id\": \"abcd1234-5678-90ef-ghij-klmnopqrstuv\",\n  \"task_id\": \"t-3\",\n  \"human_feedback\": \"Looks good, ship it.\",\n  \"is_approve\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"details\": {\n    \"key_0\": 8336,\n    \"key_1\": false,\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2e8167b8-66d1-4508-8846-3af4e587b099",
+              "name": "Internal server error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "resume"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The crew slug from the AMP dashboard.",
+                      "type": "any",
+                      "value": "{{crewName}}",
+                      "key": "crewName"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"execution_id\": \"abcd1234-5678-90ef-ghij-klmnopqrstuv\",\n  \"task_id\": \"t-3\",\n  \"human_feedback\": \"Looks good, ship it.\",\n  \"is_approve\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"details\": {\n    \"key_0\": 8336,\n    \"key_1\": false,\n    \"key_2\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The crew slug from the AMP dashboard.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-crew-name",
+      "key": "crewName"
+    },
+    {
+      "type": "string",
+      "value": "https://{{crewName}}.crewai.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "aa7a83b4-b94b-49b2-a432-159148910e16",
+    "name": "CrewAI AMP REST Inputs Resume API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Per-crew REST API exposed by every crew deployed to CrewAI AMP (Cloud or Factory).\n\nEach deployed crew is reachable at its own hostname\n(`https://{crew-name}.crewai.com` for AMP Cloud, or your private hostname for AMP Factory)\nand supports four operations:\n\n- `GET  /inputs` — list the input parameter names this crew expects.\n- `POST /kickoff` — launch a crew execution and return a `kickoff_id`.\n- `GET  /status/{kickoff_id}` — poll execution status and retrieve results.\n- `POST /resume` — submit human feedback (approve or retry) for a HITL-paused task.\n\nAll endpoints require Bearer token authentication. Tokens are issued from the AMP dashboard\nStatus tab and come in two flavors: organization-level (full crew operations) and user-scoped\n(limited permissions).\n\n\nContact Support:\n Name: CrewAI Support",
+      "type": "text/plain"
+    }
+  }
+}

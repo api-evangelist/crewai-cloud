@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "CrewAI AMP REST Inputs Status API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Status",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Kickoff Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{crewName}.crewai.com/status/:kickoff_id",
+            "params": [
+              {
+                "name": "kickoff_id",
+                "value": "",
+                "type": "path",
+                "description": "UUID returned by `POST /kickoff`."
+              }
+            ]
+          },
+          "docs": "Returns the current status of a crew execution identified by `kickoff_id`. The response\nshape varies by state: `running` includes current task and progress; `completed` includes\nper-task outputs and total execution time; `error` includes an error message.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
