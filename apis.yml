@@ -38,7 +38,7 @@ url: >-
   https://raw.githubusercontent.com/api-evangelist/crewai-cloud/refs/heads/main/apis.yml
 created: '2026-05-24'
 modified: '2026-05-24'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: crewai-cloud:crewai-amp-webhook-streaming
   name: CrewAI AMP Webhook Streaming
