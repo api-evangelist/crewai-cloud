@@ -33,6 +33,16 @@ tags:
   - Managed Agents
   - Automations
   - Observability
+  - Human-in-the-Loop
+tags_raw:
+  - AI Agents
+  - AI Agent Platform
+  - Agent Orchestration
+  - Multi-Agent Systems
+  - Agent Management Platform
+  - Managed Agents
+  - Automations
+  - Observability
   - Human In The Loop
 url: >-
   https://raw.githubusercontent.com/api-evangelist/crewai-cloud/refs/heads/main/apis.yml
@@ -50,6 +60,10 @@ apis:
     automations.
   humanURL: https://docs.crewai.com/en/enterprise/features/webhook-streaming
   tags:
+  - Webhook
+  - Event Streaming
+  - Observability
+  tags_raw:
   - Webhooks
   - Event Streaming
   - Observability
@@ -68,6 +82,10 @@ apis:
     list, deploy, and inspect AMP crews via the MCP standard rather than the raw REST surface.
   humanURL: https://github.com/crewAIInc/enterprise-mcp-server
   tags:
+  - MCP
+  - Agents
+  - Deployment
+  tags_raw:
   - MCP
   - Model Context Protocol
   - Agents
