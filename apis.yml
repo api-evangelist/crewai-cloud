@@ -10,6 +10,18 @@ description: >-
   A2A communication, automations and triggers, traces with PII redaction, and observability exports
   on top of the open-source CrewAI framework.
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
