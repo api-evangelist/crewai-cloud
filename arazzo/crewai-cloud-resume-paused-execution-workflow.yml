@@ -11,8 +11,11 @@ info:
     can be read and executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: crewaiAmpApi
-  url: ../openapi/crewai-amp-rest-api-openapi.yml
+- name: resumeApi
+  url: ../openapi/crewai-cloud-resume-api-openapi.yml
+  type: openapi
+- name: statusApi
+  url: ../openapi/crewai-cloud-status-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: resume-paused-execution

@@ -12,8 +12,11 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: crewaiAmpApi
-  url: ../openapi/crewai-amp-rest-api-openapi.yml
+- name: inputsApi
+  url: ../openapi/crewai-cloud-inputs-api-openapi.yml
+  type: openapi
+- name: kickoffApi
+  url: ../openapi/crewai-cloud-kickoff-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: discover-inputs-and-kickoff
