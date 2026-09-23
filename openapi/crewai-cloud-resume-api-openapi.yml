@@ -1,33 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: CrewAI AMP REST Inputs Resume API
+  title: CrewAI AMP REST Resume API
   version: '1.0'
-  description: 'Per-crew REST API exposed by every crew deployed to CrewAI AMP (Cloud or Factory).
-
-
-    Each deployed crew is reachable at its own hostname
-
-    (`https://{crew-name}.crewai.com` for AMP Cloud, or your private hostname for AMP Factory)
-
-    and supports four operations:
-
-
-    - `GET  /inputs` — list the input parameter names this crew expects.
-
-    - `POST /kickoff` — launch a crew execution and return a `kickoff_id`.
-
-    - `GET  /status/{kickoff_id}` — poll execution status and retrieve results.
-
-    - `POST /resume` — submit human feedback (approve or retry) for a HITL-paused task.
-
-
-    All endpoints require Bearer token authentication. Tokens are issued from the AMP dashboard
-
-    Status tab and come in two flavors: organization-level (full crew operations) and user-scoped
-
-    (limited permissions).
-
-    '
+  description: Per-crew REST API exposed by every crew deployed to CrewAI AMP (Cloud or Factory).
   contact:
     name: CrewAI Support
     url: https://docs.crewai.com/en/api-reference/introduction
@@ -64,9 +39,7 @@ paths:
 
         `execution_id` and `task_id`, the reviewer''s `human_feedback`, and `is_approve`
 
-        (`true` to proceed, `false` to retry the task with the feedback as additional context).
-
-        '
+        (`true` to proceed, `false` to retry the task with the feedback as additional context).'
       requestBody:
         required: true
         content:
@@ -116,6 +89,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request body or missing required inputs.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Authentication failed; check Bearer token validity.
       content:
@@ -128,21 +107,7 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request body or missing required inputs.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        details:
-          type: object
-          additionalProperties: true
     ResumeRequest:
       type: object
       required:
@@ -186,6 +151,14 @@ components:
           - completed
         message:
           type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
   securitySchemes:
     bearerAuth:
       type: http

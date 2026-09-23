@@ -1,33 +1,8 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: CrewAI AMP REST Inputs Status API
+  title: CrewAI AMP REST Status API
   version: '1.0'
-  description: 'Per-crew REST API exposed by every crew deployed to CrewAI AMP (Cloud or Factory).
-
-
-    Each deployed crew is reachable at its own hostname
-
-    (`https://{crew-name}.crewai.com` for AMP Cloud, or your private hostname for AMP Factory)
-
-    and supports four operations:
-
-
-    - `GET  /inputs` — list the input parameter names this crew expects.
-
-    - `POST /kickoff` — launch a crew execution and return a `kickoff_id`.
-
-    - `GET  /status/{kickoff_id}` — poll execution status and retrieve results.
-
-    - `POST /resume` — submit human feedback (approve or retry) for a HITL-paused task.
-
-
-    All endpoints require Bearer token authentication. Tokens are issued from the AMP dashboard
-
-    Status tab and come in two flavors: organization-level (full crew operations) and user-scoped
-
-    (limited permissions).
-
-    '
+  description: Per-crew REST API exposed by every crew deployed to CrewAI AMP (Cloud or Factory).
   contact:
     name: CrewAI Support
     url: https://docs.crewai.com/en/api-reference/introduction
@@ -64,9 +39,7 @@ paths:
 
         shape varies by state: `running` includes current task and progress; `completed` includes
 
-        per-task outputs and total execution time; `error` includes an error message.
-
-        '
+        per-task outputs and total execution time; `error` includes an error message.'
       parameters:
       - in: path
         name: kickoff_id
@@ -116,7 +89,37 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
+  responses:
+    ServerError:
+      description: Internal server error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed; check Bearer token validity.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    StatusResponse:
+      oneOf:
+      - $ref: '#/components/schemas/StatusRunning'
+      - $ref: '#/components/schemas/StatusCompleted'
+      - $ref: '#/components/schemas/StatusError'
+      discriminator:
+        propertyName: status
+        mapping:
+          running: '#/components/schemas/StatusRunning'
+          completed: '#/components/schemas/StatusCompleted'
+          error: '#/components/schemas/StatusError'
     StatusCompleted:
       type: object
       required:
@@ -155,6 +158,27 @@ components:
         execution_time:
           type: number
           format: double
+    TaskResult:
+      type: object
+      properties:
+        task_id:
+          type: string
+        agent:
+          type: string
+          description: Agent role that executed the task.
+        output:
+          type: string
+        execution_time:
+          type: number
+          format: double
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
     StatusRunning:
       type: object
       required:
@@ -176,57 +200,6 @@ components:
             total_tasks:
               type: integer
               minimum: 0
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        details:
-          type: object
-          additionalProperties: true
-    TaskResult:
-      type: object
-      properties:
-        task_id:
-          type: string
-        agent:
-          type: string
-          description: Agent role that executed the task.
-        output:
-          type: string
-        execution_time:
-          type: number
-          format: double
-    StatusResponse:
-      oneOf:
-      - $ref: '#/components/schemas/StatusRunning'
-      - $ref: '#/components/schemas/StatusCompleted'
-      - $ref: '#/components/schemas/StatusError'
-      discriminator:
-        propertyName: status
-        mapping:
-          running: '#/components/schemas/StatusRunning'
-          completed: '#/components/schemas/StatusCompleted'
-          error: '#/components/schemas/StatusError'
-  responses:
-    ServerError:
-      description: Internal server error.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed; check Bearer token validity.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http
