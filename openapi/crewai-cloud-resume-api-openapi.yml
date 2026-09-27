@@ -89,12 +89,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Invalid request body or missing required inputs.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Authentication failed; check Bearer token validity.
       content:
@@ -107,7 +101,34 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Invalid request body or missing required inputs.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
+    ResumeResponse:
+      type: object
+      required:
+      - status
+      properties:
+        status:
+          type: string
+          enum:
+          - resumed
+          - retrying
+          - completed
+        message:
+          type: string
     ResumeRequest:
       type: object
       required:
@@ -138,27 +159,6 @@ components:
         crewWebhookUrl:
           type: string
           format: uri
-    ResumeResponse:
-      type: object
-      required:
-      - status
-      properties:
-        status:
-          type: string
-          enum:
-          - resumed
-          - retrying
-          - completed
-        message:
-          type: string
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        details:
-          type: object
-          additionalProperties: true
   securitySchemes:
     bearerAuth:
       type: http
