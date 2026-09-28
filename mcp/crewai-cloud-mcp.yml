@@ -16,14 +16,18 @@ deployment:
 tools_count: 5
 tools:
 - name: crewai_list_blog_posts
-  description: ''
+  description: Returns paginated blog posts from the CrewAI marketing site public API (same data as GET
+    /api/blog-posts).
 - name: crewai_list_case_studies
-  description: ''
+  description: Returns paginated customer case studies (same data as GET /api/case-studies).
 - name: crewai_list_webinars
-  description: ''
+  description: Returns paginated webinars (same data as GET /api/webinars).
 - name: crewai_list_events
-  description: ''
+  description: Returns paginated events (same data as GET /api/events).
 - name: crewai_developer_resources
-  description: ''
+  description: 'Returns canonical URLs for CrewAI staging developer docs: OpenAPI, auth, webhooks, MCP,
+    and portal.'
 tools_source: live tools/list via initialize handshake, 2026-09-11 (signals/audit_mcp_authorship.py --probe)
 authorship: provider
+descriptions_source: live tools/list (authorship probe or saved capture); filled by backfill-tools-from-authorship.py
+  --descriptions, 2026-09-28
