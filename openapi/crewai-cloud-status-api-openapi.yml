@@ -89,41 +89,26 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
+  responses:
+    ServerError:
+      description: Internal server error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed; check Bearer token validity.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    StatusRunning:
-      type: object
-      required:
-      - status
-      properties:
-        status:
-          type: string
-          enum:
-          - running
-        current_task:
-          type: string
-          description: Name or id of the task currently executing.
-        progress:
-          type: object
-          properties:
-            completed_tasks:
-              type: integer
-              minimum: 0
-            total_tasks:
-              type: integer
-              minimum: 0
-    TaskResult:
-      type: object
-      properties:
-        task_id:
-          type: string
-        agent:
-          type: string
-          description: Agent role that executed the task.
-        output:
-          type: string
-        execution_time:
-          type: number
-          format: double
     StatusCompleted:
       type: object
       required:
@@ -147,14 +132,17 @@ components:
           type: number
           format: double
           description: Total execution time in seconds.
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        details:
-          type: object
-          additionalProperties: true
+    StatusResponse:
+      oneOf:
+      - $ref: '#/components/schemas/StatusRunning'
+      - $ref: '#/components/schemas/StatusCompleted'
+      - $ref: '#/components/schemas/StatusError'
+      discriminator:
+        propertyName: status
+        mapping:
+          running: '#/components/schemas/StatusRunning'
+          completed: '#/components/schemas/StatusCompleted'
+          error: '#/components/schemas/StatusError'
     StatusError:
       type: object
       required:
@@ -170,36 +158,48 @@ components:
         execution_time:
           type: number
           format: double
-    StatusResponse:
-      oneOf:
-      - $ref: '#/components/schemas/StatusRunning'
-      - $ref: '#/components/schemas/StatusCompleted'
-      - $ref: '#/components/schemas/StatusError'
-      discriminator:
-        propertyName: status
-        mapping:
-          running: '#/components/schemas/StatusRunning'
-          completed: '#/components/schemas/StatusCompleted'
-          error: '#/components/schemas/StatusError'
-  responses:
-    ServerError:
-      description: Internal server error.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed; check Bearer token validity.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    StatusRunning:
+      type: object
+      required:
+      - status
+      properties:
+        status:
+          type: string
+          enum:
+          - running
+        current_task:
+          type: string
+          description: Name or id of the task currently executing.
+        progress:
+          type: object
+          properties:
+            completed_tasks:
+              type: integer
+              minimum: 0
+            total_tasks:
+              type: integer
+              minimum: 0
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
+    TaskResult:
+      type: object
+      properties:
+        task_id:
+          type: string
+        agent:
+          type: string
+          description: Agent role that executed the task.
+        output:
+          type: string
+        execution_time:
+          type: number
+          format: double
   securitySchemes:
     bearerAuth:
       type: http
