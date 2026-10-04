@@ -89,72 +89,17 @@ paths:
         '500':
           $ref: '#/components/responses/ServerError'
 components:
-  responses:
-    ServerError:
-      description: Internal server error.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed; check Bearer token validity.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    StatusCompleted:
+    TaskResult:
       type: object
-      required:
-      - status
       properties:
-        status:
+        task_id:
           type: string
-          enum:
-          - completed
-        result:
-          type: object
-          properties:
-            output:
-              type: string
-              description: Final aggregated crew output.
-            tasks:
-              type: array
-              items:
-                $ref: '#/components/schemas/TaskResult'
-        execution_time:
-          type: number
-          format: double
-          description: Total execution time in seconds.
-    StatusResponse:
-      oneOf:
-      - $ref: '#/components/schemas/StatusRunning'
-      - $ref: '#/components/schemas/StatusCompleted'
-      - $ref: '#/components/schemas/StatusError'
-      discriminator:
-        propertyName: status
-        mapping:
-          running: '#/components/schemas/StatusRunning'
-          completed: '#/components/schemas/StatusCompleted'
-          error: '#/components/schemas/StatusError'
-    StatusError:
-      type: object
-      required:
-      - status
-      properties:
-        status:
+        agent:
           type: string
-          enum:
-          - error
-        error:
+          description: Agent role that executed the task.
+        output:
           type: string
-          description: Human-readable error message.
         execution_time:
           type: number
           format: double
@@ -187,19 +132,74 @@ components:
         details:
           type: object
           additionalProperties: true
-    TaskResult:
+    StatusResponse:
+      oneOf:
+      - $ref: '#/components/schemas/StatusRunning'
+      - $ref: '#/components/schemas/StatusCompleted'
+      - $ref: '#/components/schemas/StatusError'
+      discriminator:
+        propertyName: status
+        mapping:
+          running: '#/components/schemas/StatusRunning'
+          completed: '#/components/schemas/StatusCompleted'
+          error: '#/components/schemas/StatusError'
+    StatusCompleted:
       type: object
+      required:
+      - status
       properties:
-        task_id:
+        status:
           type: string
-        agent:
-          type: string
-          description: Agent role that executed the task.
-        output:
-          type: string
+          enum:
+          - completed
+        result:
+          type: object
+          properties:
+            output:
+              type: string
+              description: Final aggregated crew output.
+            tasks:
+              type: array
+              items:
+                $ref: '#/components/schemas/TaskResult'
         execution_time:
           type: number
           format: double
+          description: Total execution time in seconds.
+    StatusError:
+      type: object
+      required:
+      - status
+      properties:
+        status:
+          type: string
+          enum:
+          - error
+        error:
+          type: string
+          description: Human-readable error message.
+        execution_time:
+          type: number
+          format: double
+  responses:
+    ServerError:
+      description: Internal server error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed; check Bearer token validity.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

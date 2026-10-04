@@ -84,20 +84,14 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   responses:
-    ServerError:
-      description: Internal server error.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     BadRequest:
       description: Invalid request body or missing required inputs.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed; check Bearer token validity.
+    ServerError:
+      description: Internal server error.
       content:
         application/json:
           schema:
@@ -108,16 +102,21 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed; check Bearer token validity.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    KickoffResponse:
+    Error:
       type: object
-      required:
-      - kickoff_id
       properties:
-        kickoff_id:
+        error:
           type: string
-          format: uuid
-          description: Unique identifier for the kickoff. Use with `/status/{kickoff_id}`.
+        details:
+          type: object
+          additionalProperties: true
     KickoffRequest:
       type: object
       required:
@@ -143,14 +142,15 @@ components:
           type: string
           format: uri
           description: Callback URL invoked when the crew execution completes.
-    Error:
+    KickoffResponse:
       type: object
+      required:
+      - kickoff_id
       properties:
-        error:
+        kickoff_id:
           type: string
-        details:
-          type: object
-          additionalProperties: true
+          format: uuid
+          description: Unique identifier for the kickoff. Use with `/status/{kickoff_id}`.
   securitySchemes:
     bearerAuth:
       type: http
