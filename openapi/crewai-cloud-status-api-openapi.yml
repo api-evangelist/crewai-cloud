@@ -90,19 +90,6 @@ paths:
           $ref: '#/components/responses/ServerError'
 components:
   schemas:
-    TaskResult:
-      type: object
-      properties:
-        task_id:
-          type: string
-        agent:
-          type: string
-          description: Agent role that executed the task.
-        output:
-          type: string
-        execution_time:
-          type: number
-          format: double
     StatusRunning:
       type: object
       required:
@@ -124,14 +111,34 @@ components:
             total_tasks:
               type: integer
               minimum: 0
-    Error:
+    TaskResult:
       type: object
       properties:
+        task_id:
+          type: string
+        agent:
+          type: string
+          description: Agent role that executed the task.
+        output:
+          type: string
+        execution_time:
+          type: number
+          format: double
+    StatusError:
+      type: object
+      required:
+      - status
+      properties:
+        status:
+          type: string
+          enum:
+          - error
         error:
           type: string
-        details:
-          type: object
-          additionalProperties: true
+          description: Human-readable error message.
+        execution_time:
+          type: number
+          format: double
     StatusResponse:
       oneOf:
       - $ref: '#/components/schemas/StatusRunning'
@@ -166,21 +173,14 @@ components:
           type: number
           format: double
           description: Total execution time in seconds.
-    StatusError:
+    Error:
       type: object
-      required:
-      - status
       properties:
-        status:
-          type: string
-          enum:
-          - error
         error:
           type: string
-          description: Human-readable error message.
-        execution_time:
-          type: number
-          format: double
+        details:
+          type: object
+          additionalProperties: true
   responses:
     ServerError:
       description: Internal server error.
@@ -188,14 +188,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found.
+    Unauthorized:
+      description: Authentication failed; check Bearer token validity.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed; check Bearer token validity.
+    NotFound:
+      description: Resource not found.
       content:
         application/json:
           schema:
