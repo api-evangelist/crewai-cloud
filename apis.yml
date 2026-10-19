@@ -118,16 +118,16 @@ apis:
     url: https://github.com/crewAIInc/enterprise-mcp-server
   - type: Documentation
     url: https://docs.crewai.com/en/enterprise/guides/custom-mcp-server
-- aid: crewai-cloud:crewai-cloud-inputs-api
-  name: CrewAI Cloud Inputs API
-  description: Discover the input parameters this crew accepts.
-  humanURL: https://docs.crewai.com/en/api-reference/introduction
+- aid: crewai-cloud:crewai-cloud-blog-posts-api
+  name: CrewAI Cloud Blog Posts API
+  description: The Blog Posts API from CrewAI Cloud — 1 operation(s) for blog posts.
+  humanURL: https://docs.crewai.com/en/enterprise/features/webhook-streaming
   baseURL: https://{crew-name}.crewai.com
   tags:
-  - Inputs
+  - Blog Posts
   properties:
   - type: OpenAPI
-    url: openapi/crewai-cloud-inputs-api-openapi.yml
+    url: openapi/crewai-cloud-blog-posts-api-openapi.yml
   - type: Documentation
     url: https://docs.crewai.com/en/api-reference/introduction
   - type: Documentation
@@ -142,16 +142,16 @@ apis:
     url: https://docs.crewai.com/en/enterprise/guides/kickoff-crew
   - type: Authentication
     url: https://docs.crewai.com/en/api-reference/introduction
-- aid: crewai-cloud:crewai-cloud-kickoff-api
-  name: CrewAI Cloud Kickoff API
-  description: Launch a crew execution.
-  humanURL: https://docs.crewai.com/en/api-reference/introduction
+- aid: crewai-cloud:crewai-cloud-case-studies-api
+  name: CrewAI Cloud Case Studies API
+  description: The Case Studies API from CrewAI Cloud — 1 operation(s) for case studies.
+  humanURL: https://docs.crewai.com/en/enterprise/features/webhook-streaming
   baseURL: https://{crew-name}.crewai.com
   tags:
-  - Kickoff
+  - Case Studies
   properties:
   - type: OpenAPI
-    url: openapi/crewai-cloud-kickoff-api-openapi.yml
+    url: openapi/crewai-cloud-case-studies-api-openapi.yml
   - type: Documentation
     url: https://docs.crewai.com/en/api-reference/introduction
   - type: Documentation
@@ -166,16 +166,16 @@ apis:
     url: https://docs.crewai.com/en/enterprise/guides/kickoff-crew
   - type: Authentication
     url: https://docs.crewai.com/en/api-reference/introduction
-- aid: crewai-cloud:crewai-cloud-resume-api
-  name: CrewAI Cloud Resume API
-  description: Deliver human-in-the-loop feedback on a paused task.
-  humanURL: https://docs.crewai.com/en/api-reference/introduction
+- aid: crewai-cloud:crewai-cloud-events-api
+  name: CrewAI Cloud Events API
+  description: The Events API from CrewAI Cloud — 1 operation(s) for events.
+  humanURL: https://docs.crewai.com/en/enterprise/features/webhook-streaming
   baseURL: https://{crew-name}.crewai.com
   tags:
-  - Resume
+  - Events
   properties:
   - type: OpenAPI
-    url: openapi/crewai-cloud-resume-api-openapi.yml
+    url: openapi/crewai-cloud-events-api-openapi.yml
   - type: Documentation
     url: https://docs.crewai.com/en/api-reference/introduction
   - type: Documentation
@@ -190,16 +190,40 @@ apis:
     url: https://docs.crewai.com/en/enterprise/guides/kickoff-crew
   - type: Authentication
     url: https://docs.crewai.com/en/api-reference/introduction
-- aid: crewai-cloud:crewai-cloud-status-api
-  name: CrewAI Cloud Status API
-  description: Inspect execution progress and retrieve results.
-  humanURL: https://docs.crewai.com/en/api-reference/introduction
+- aid: crewai-cloud:crewai-cloud-health-api
+  name: CrewAI Cloud Health API
+  description: The Health API from CrewAI Cloud — 1 operation(s) for health.
+  humanURL: https://docs.crewai.com/en/enterprise/features/webhook-streaming
   baseURL: https://{crew-name}.crewai.com
   tags:
-  - Status
+  - Health
   properties:
   - type: OpenAPI
-    url: openapi/crewai-cloud-status-api-openapi.yml
+    url: openapi/crewai-cloud-health-api-openapi.yml
+  - type: Documentation
+    url: https://docs.crewai.com/en/api-reference/introduction
+  - type: Documentation
+    url: https://docs.crewai.com/en/api-reference/inputs
+  - type: Documentation
+    url: https://docs.crewai.com/en/api-reference/kickoff
+  - type: Documentation
+    url: https://docs.crewai.com/en/api-reference/status
+  - type: Documentation
+    url: https://docs.crewai.com/en/api-reference/resume
+  - type: Documentation
+    url: https://docs.crewai.com/en/enterprise/guides/kickoff-crew
+  - type: Authentication
+    url: https://docs.crewai.com/en/api-reference/introduction
+- aid: crewai-cloud:crewai-cloud-webinars-api
+  name: CrewAI Cloud Webinars API
+  description: The Webinars API from CrewAI Cloud — 1 operation(s) for webinars.
+  humanURL: https://docs.crewai.com/en/enterprise/features/webhook-streaming
+  baseURL: https://{crew-name}.crewai.com
+  tags:
+  - Webinars
+  properties:
+  - type: OpenAPI
+    url: openapi/crewai-cloud-webinars-api-openapi.yml
   - type: Documentation
     url: https://docs.crewai.com/en/api-reference/introduction
   - type: Documentation

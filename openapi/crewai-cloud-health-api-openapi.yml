@@ -1,0 +1,64 @@
+openapi: 3.2.0
+info:
+  title: CrewAI Marketing Site Public Health API
+  version: 1.0.0
+  description: 'Read-oriented REST API for the CrewAI marketing site. Scoped OAuth and API key roles documented in components.securitySchemes. Full docs: https://crewai.com/developers'
+servers:
+- url: https://crewai.com/api
+  description: Public JSON API
+security:
+- {}
+- OAuth2:
+  - api.read
+- ApiKeyAuth: []
+tags:
+- name: Health
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      summary: Health check
+      security:
+      - {}
+      - OAuth2:
+        - api.read
+      - ApiKeyAuth: []
+      responses:
+        '200':
+          description: Service healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+      tags:
+      - Health
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: OAuth 2.0 authorization code flow with scoped access
+      flows:
+        authorizationCode:
+          authorizationUrl: https://crewai.com/api/oauth/authorize
+          tokenUrl: https://crewai.com/api/oauth/token
+          scopes:
+            openid: OpenID Connect identity
+            profile: User profile claims
+            email: Email address
+            api.read: Read all public marketing JSON APIs
+            content.blog.read: Read blog posts via GET /api/blog-posts
+            content.case-studies.read: Read case studies via GET /api/case-studies
+            content.webinars.read: Read webinars via GET /api/webinars
+            content.events.read: Read events via GET /api/events
+            mcp.tools.invoke: Invoke CrewAI MCP tools at POST /mcp
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Bearer API key. Roles: sandbox.read, agent.mcp. Example: Bearer crewai_site_sandbox_read'
+externalDocs:
+  description: CrewAI developer portal
+  url: https://crewai.com/developers

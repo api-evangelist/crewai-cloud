@@ -1,26 +1,32 @@
 {
   "provider": "crewai-cloud",
   "sources": [
-    "_original/crewai-amp-rest-api-openapi.yml"
+    "_original/crewai-cloud-openapi.json"
   ],
   "outputs": [
-    "crewai-cloud-inputs-api-openapi.yml",
-    "crewai-cloud-kickoff-api-openapi.yml",
-    "crewai-cloud-resume-api-openapi.yml",
-    "crewai-cloud-status-api-openapi.yml"
+    "crewai-cloud-blog-posts-api-openapi.yml",
+    "crewai-cloud-case-studies-api-openapi.yml",
+    "crewai-cloud-events-api-openapi.yml",
+    "crewai-cloud-health-api-openapi.yml",
+    "crewai-cloud-webinars-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
-    "crewai-amp-rest-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "apis.yml register: already-registered"
+    "crewai-cloud-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "crewai-cloud-openapi.json: tagged paths GET /health -> Health",
+    "crewai-cloud-openapi.json: tagged paths GET /blog-posts -> Blog Posts",
+    "crewai-cloud-openapi.json: tagged paths GET /case-studies -> Case Studies",
+    "crewai-cloud-openapi.json: tagged paths GET /webinars -> Webinars",
+    "crewai-cloud-openapi.json: tagged paths GET /events -> Events",
+    "crewai-cloud-openapi.json: declared missing tag: Blog Posts",
+    "crewai-cloud-openapi.json: declared missing tag: Case Studies",
+    "crewai-cloud-openapi.json: declared missing tag: Events",
+    "crewai-cloud-openapi.json: declared missing tag: Health",
+    "crewai-cloud-openapi.json: declared missing tag: Webinars",
+    "apis.yml register: written (+5 apis, 7 total)"
   ],
-  "skipped": [
-    "crewai-cloud-inputs-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "crewai-cloud-kickoff-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "crewai-cloud-resume-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "crewai-cloud-status-api-openapi.yml: previously refined output, superseded by openapi/_original/"
-  ]
+  "skipped": []
 }
