@@ -1,0 +1,135 @@
+{
+  "endpoint": "https://crewai.com/mcp",
+  "captured": "2026-10-20",
+  "method": "initialize + tools/list (anonymous, no tool called; roadmap#992)",
+  "protocol_version": "2025-06-18",
+  "server_info": {
+    "name": "crewai-marketing-site",
+    "version": "1.0.0"
+  },
+  "result": {
+    "tools": [
+      {
+        "name": "crewai_list_blog_posts",
+        "title": "List CrewAI blog posts",
+        "description": "Returns paginated blog posts from the CrewAI marketing site public API (same data as GET /api/blog-posts).",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 24
+            },
+            "skip": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "category": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "crewai_list_case_studies",
+        "title": "List CrewAI case studies",
+        "description": "Returns paginated customer case studies (same data as GET /api/case-studies).",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 24
+            },
+            "skip": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "excludeFeatured": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "crewai_list_webinars",
+        "title": "List CrewAI webinars",
+        "description": "Returns paginated webinars (same data as GET /api/webinars).",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 24
+            },
+            "skip": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "category": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "crewai_list_events",
+        "title": "List CrewAI events",
+        "description": "Returns paginated events (same data as GET /api/events).",
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 24
+            },
+            "skip": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "category": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "crewai_developer_resources",
+        "title": "CrewAI developer resource index",
+        "description": "Returns canonical URLs for CrewAI staging developer docs: OpenAPI, auth, webhooks, MCP, and portal.",
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      }
+    ]
+  }
+}
