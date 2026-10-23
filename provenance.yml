@@ -7,20 +7,20 @@ artifacts:
     method: generated
     evidence: declared in the artifact
   arazzo/crewai-cloud-discover-inputs-and-kickoff-workflow.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: Arazzo whose sourceDescriptions are our split specs (../openapi/)
   arazzo/crewai-cloud-full-run-with-result-workflow.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: Arazzo whose sourceDescriptions are our split specs (../openapi/)
   arazzo/crewai-cloud-kickoff-and-poll-until-complete-workflow.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: Arazzo whose sourceDescriptions are our split specs (../openapi/)
   arazzo/crewai-cloud-kickoff-with-hitl-review-workflow.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: Arazzo whose sourceDescriptions are our split specs (../openapi/)
   arazzo/crewai-cloud-resume-paused-execution-workflow.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: derived
+    evidence: Arazzo whose sourceDescriptions are our split specs (../openapi/)
   asyncapi/crewai-amp-webhooks-asyncapi.yml:
     method: unknown
     evidence: no authorship recorded
@@ -34,29 +34,29 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   collections/crewai-cloud-inputs-api.opencollection.json:
-    method: derived
-    evidence: openapi/crewai-cloud-inputs-api
+    method: unknown
+    evidence: no authorship recorded
   collections/crewai-cloud-inputs-api.postman_collection.json:
-    method: derived
-    evidence: openapi/crewai-cloud-inputs-api
+    method: unknown
+    evidence: no authorship recorded
   collections/crewai-cloud-kickoff-api.opencollection.json:
-    method: derived
-    evidence: openapi/crewai-cloud-kickoff-api
+    method: unknown
+    evidence: no authorship recorded
   collections/crewai-cloud-kickoff-api.postman_collection.json:
-    method: derived
-    evidence: openapi/crewai-cloud-kickoff-api
+    method: unknown
+    evidence: no authorship recorded
   collections/crewai-cloud-resume-api.opencollection.json:
-    method: derived
-    evidence: openapi/crewai-cloud-resume-api
+    method: unknown
+    evidence: no authorship recorded
   collections/crewai-cloud-resume-api.postman_collection.json:
-    method: derived
-    evidence: openapi/crewai-cloud-resume-api
+    method: unknown
+    evidence: no authorship recorded
   collections/crewai-cloud-status-api.opencollection.json:
-    method: derived
-    evidence: openapi/crewai-cloud-status-api
+    method: unknown
+    evidence: no authorship recorded
   collections/crewai-cloud-status-api.postman_collection.json:
-    method: derived
-    evidence: openapi/crewai-cloud-status-api
+    method: unknown
+    evidence: no authorship recorded
   examples/crewai-cloud-kickoff-example.json:
     method: unknown
     evidence: no authorship recorded
@@ -67,11 +67,17 @@ artifacts:
     method: unknown
     evidence: no authorship recorded
   finops/crewai-cloud-finops.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: generated
+    evidence: declared in the artifact
   front-door-ai/2026-09-17.yml:
     method: unknown
     evidence: no authorship recorded
+  integrations/_index.yml:
+    method: generated
+    evidence: carries an API Evangelist house phrase
+  integrations/crewai-cloud-integration-edges.yml:
+    method: searched
+    evidence: declared in the artifact
   json-ld/crewai-cloud-context.jsonld:
     method: unknown
     evidence: no authorship recorded
@@ -87,127 +93,7 @@ artifacts:
   json-structure/crewai-cloud-kickoff-structure.json:
     method: unknown
     evidence: no authorship recorded
-  kin/checks-2026-09-24T161608.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T125852.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T133943.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T143147.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-25T154045.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-26T215308.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T094438.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T103455.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T123021.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T132314.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-27T140727.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-28T221322.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T213958.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-29T230545.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T203505.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-30T220315.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-08-31T223420.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T063623.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T210448.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-01T222808.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-02T224043.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T161828.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-03T174231.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T062714.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T212454.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-04T224856.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T055819.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T072335.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T144739.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T195450.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-05T211839.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T011047.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T211804.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-06T224210.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T200636.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-07T213054.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T214843.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-08T232836.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T204815.yml:
-    method: generated
-    evidence: Kin Score snapshot written by score.rb
-  kin/score-2026-09-10T222408.yml:
+  kin/checks-2026-10-11T110117.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
   kin/score-2026-09-12T062655.yml:
@@ -291,37 +177,57 @@ artifacts:
   kin/score-2026-09-24T161608.yml:
     method: generated
     evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T210408.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-09-25T232841.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T000835.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-03T024842.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
+  kin/score-2026-10-11T110117.yml:
+    method: generated
+    evidence: Kin Score snapshot written by score.rb
   llms/crewai-cloud-llms.txt:
     method: searched
     evidence: 'derive-llms-provenance.py: harvested'
+  mcp/crewai-cloud-mcp-tools.json:
+    method: unknown
+    evidence: no authorship recorded
   mcp/crewai-cloud-mcp.yml:
     method: unknown
     evidence: no authorship recorded
-  openapi/_original/crewai-amp-rest-api-openapi.yml:
+  openapi/_original/crewai-cloud-openapi.json:
     method: harvested
-    evidence: found in openapi/_original/; the fetch URL and bytes were not recorded, so byte-identity
-      to the provider's source is unverified
-  openapi/crewai-cloud-inputs-api-openapi.yml:
+    evidence: byte-identical to https://crewai.com/openapi.json (sha256 52d16809d779, fetched 2026-10-19)
+  openapi/crewai-cloud-blog-posts-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/crewai-cloud-kickoff-api-openapi.yml:
+  openapi/crewai-cloud-case-studies-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/crewai-cloud-resume-api-openapi.yml:
+  openapi/crewai-cloud-events-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
-  openapi/crewai-cloud-status-api-openapi.yml:
+  openapi/crewai-cloud-health-api-openapi.yml:
+    method: derived
+    evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
+  openapi/crewai-cloud-webinars-api-openapi.yml:
     method: derived
     evidence: paths are a subset of openapi/_original/ (split from the harvested spec)
   plans/crewai-cloud-plans-pricing.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: generated
+    evidence: declared in the artifact
   postman/crewai-amp-rest-api.postman_collection.json:
     method: unknown
     evidence: no authorship recorded
   rate-limits/crewai-cloud-rate-limits.yml:
-    method: unknown
-    evidence: no authorship recorded
+    method: generated
+    evidence: declared in the artifact
   rules/crewai-amp-rest-api-rules.yml:
     method: unknown
     evidence: no authorship recorded

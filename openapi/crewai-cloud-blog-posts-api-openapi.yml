@@ -86,3 +86,9 @@ components:
 externalDocs:
   description: CrewAI developer portal
   url: https://crewai.com/developers
+x-provenance:
+  method: harvested
+  publisher: CrewAI Cloud
+  source: https://crewai.com/openapi.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
