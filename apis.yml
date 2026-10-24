@@ -172,6 +172,8 @@ apis:
   humanURL: https://docs.crewai.com/en/enterprise/features/webhook-streaming
   baseURL: https://{crew-name}.crewai.com
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
