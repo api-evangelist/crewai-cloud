@@ -1,4 +1,4 @@
-# CrewAI Cloud (crewai-cloud)
+# CrewAI Cloud
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,161 +66,208 @@
 
 CrewAI Cloud (CrewAI AMP) is the managed Agent Management Platform for deploying, monitoring, scaling, and governing CrewAI multi-agent workflows in production. AMP exposes a per-crew REST API for kickoff, status, inputs, and human-in-the-loop resume operations, plus webhook streaming for task, step, and crew events. The platform ships in two deployment modes — AMP Cloud (managed, multi-tenant at app.crewai.com) and AMP Factory (self-hosted on AWS, Azure, or GCP) — and layers RBAC, SSO, secrets manager federation (AWS/Azure/GCP), agent and tool repositories, a marketplace, A2A communication, automations and triggers, traces with PII redaction, and observability exports on top of the open-source CrewAI framework.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/crewai-cloud/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/crewai-cloud/refs/heads/main/apis.yml)
+**Areas:** AI Agents · AI Agent Platform · Agent Orchestration · Multi-Agent Systems · Agent Management Platform · Managed Agents · Automation · Observability · Human-in-the-Loop · A2A
 
-## Scope
+## CrewAI Cloud on APIs.io
 
-- **Type:** Index
+Everything profiled for CrewAI Cloud is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/crewai-cloud/](https://apis.io/providers/crewai-cloud/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (6)
 
-- AI Agents
-- AI Agent Platform
-- Agent Orchestration
-- Multi-Agent Systems
-- Agent Management Platform
-- Managed Agents
-- Automations
-- Observability
-- Human In The Loop
+- [CrewAI AMP Webhook Streaming](https://apis.io/apis/crewai-cloud/crewai-amp-webhook-streaming/) — Outbound event streaming for AMP crew executions. When you kick off a crew you can supply three callback URLs — taskWebhookUrl (fired after each task…
+- [CrewAI Enterprise MCP Server](https://apis.io/apis/crewai-cloud/crewai-enterprise-mcp-server/) — Model Context Protocol server published by CrewAI Inc. that exposes AMP crew deployment operations and status tracking to MCP-compatible agents and IDEs.…
+- [CrewAI Cloud Inputs API](https://apis.io/apis/crewai-cloud/crewai-cloud-inputs-api/) — Discover the input parameters this crew accepts.
+- [CrewAI Cloud Kickoff API](https://apis.io/apis/crewai-cloud/crewai-cloud-kickoff-api/) — Launch a crew execution.
+- [CrewAI Cloud Resume API](https://apis.io/apis/crewai-cloud/crewai-cloud-resume-api/) — Deliver human-in-the-loop feedback on a paused task.
+- [CrewAI Cloud Status API](https://apis.io/apis/crewai-cloud/crewai-cloud-status-api/) — Inspect execution progress and retrieve results.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2026-05-24
-- **Modified:** 2026-05-24
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### Arazzo workflows (5)
 
-### CrewAI AMP REST API
+Multi-step workflows that chain operations into a business task.
 
-Per-crew REST API exposed for every crew deployed to CrewAI AMP. Each deployed crew is reachable at https://{crew-name}.crewai.com and exposes four operations — GET /inputs to discover required input parameters, POST /kickoff to launch an execution with inputs and optional task/step/crew webhook URLs (returns a kickoff_id), GET /status/{kickoff_id} to poll execution status (running, completed, error) and retrieve per-task results, and POST /resume to deliver human feedback (approve or retry) on a task that paused for HITL review. All endpoints require Bearer token authentication using either an organization-level or user-scoped token from the AMP dashboard Status tab.
+- [CrewAI AMP Discover Inputs and Kick Off](https://apis.io/arazzos/crewai-cloud/crewai-cloud-discover-inputs-and-kickoff-workflow/)
+- [CrewAI AMP Full Run With Result](https://apis.io/arazzos/crewai-cloud/crewai-cloud-full-run-with-result-workflow/)
+- [CrewAI AMP Kick Off and Poll Until Complete](https://apis.io/arazzos/crewai-cloud/crewai-cloud-kickoff-and-poll-until-complete-workflow/)
+- [CrewAI AMP Kick Off With Human-in-the-Loop Review](https://apis.io/arazzos/crewai-cloud/crewai-cloud-kickoff-with-hitl-review-workflow/)
+- [CrewAI AMP Resume a Paused Execution](https://apis.io/arazzos/crewai-cloud/crewai-cloud-resume-paused-execution-workflow/)
 
-- **Human URL:** [https://docs.crewai.com/en/api-reference/introduction](https://docs.crewai.com/en/api-reference/introduction)
-- **Base URL:** `https://{crew-name}.crewai.com`
+#### AsyncAPI (1)
 
-#### Tags
+Event-driven and webhook contracts.
 
-- AI Agents
-- Crew Execution
-- Kickoff
-- Status
-- Human In The Loop
+- [CrewAI AMP Webhook Streaming](https://apis.io/asyncapis/crewai-cloud/crewai-amp-webhooks-asyncapi/)
 
-#### Properties
+#### Event channels (3)
 
-- [Documentation](https://docs.crewai.com/en/api-reference/introduction)
-- [Documentation](https://docs.crewai.com/en/api-reference/inputs)
-- [Documentation](https://docs.crewai.com/en/api-reference/kickoff)
-- [Documentation](https://docs.crewai.com/en/api-reference/status)
-- [Documentation](https://docs.crewai.com/en/api-reference/resume)
-- [Documentation](https://docs.crewai.com/en/enterprise/guides/kickoff-crew)
-- [Authentication](https://docs.crewai.com/en/api-reference/introduction)
-- [OpenAPI](openapi/crewai-amp-rest-api-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/crewai-amp-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/crewai-amp-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Individual events and webhooks the provider emits.
 
-### CrewAI AMP Webhook Streaming
+- [{crewWebhookUrl}](https://apis.io/channels/crewai-cloud/crewwebhookurl/)
+- [{stepWebhookUrl}](https://apis.io/channels/crewai-cloud/stepwebhookurl/)
+- [{taskWebhookUrl}](https://apis.io/channels/crewai-cloud/taskwebhookurl/)
 
-Outbound event streaming for AMP crew executions. When you kick off a crew you can supply three callback URLs — taskWebhookUrl (fired after each task completes), stepWebhookUrl (fired after each agent thought/action), and crewWebhookUrl (fired when the overall crew run finishes). AMP POSTs JSON event payloads to those URLs so your systems can react to agent progress in real time, log traces externally, or chain follow-on automations.
+#### MCP servers (1)
 
-- **Human URL:** [https://docs.crewai.com/en/enterprise/features/webhook-streaming](https://docs.crewai.com/en/enterprise/features/webhook-streaming)
+Model Context Protocol servers that expose the API to agents.
 
-#### Tags
+- [crewai-cloud](https://apis.io/servers/crewai-cloud/crewai-cloud/)
 
-- Webhooks
-- Event Streaming
-- Observability
+#### Agentic access (1)
 
-#### Properties
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- [Documentation](https://docs.crewai.com/en/enterprise/features/webhook-streaming)
-- [Documentation](https://docs.crewai.com/en/enterprise/guides/webhook-automation)
-- [AsyncAPI](asyncapi/crewai-amp-webhooks-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
-- [Postman Collection](collections/crewai-amp-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/crewai-amp-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Crewai Cloud Agentic Access](https://apis.io/agentic-access/crewai-cloud/crewai-cloud-agentic-access/)
 
-### CrewAI Enterprise MCP Server
+#### JSON Schema (3)
 
-Model Context Protocol server published by CrewAI Inc. that exposes AMP crew deployment operations and status tracking to MCP-compatible agents and IDEs. Lets Claude, Cursor, and other MCP clients list, deploy, and inspect AMP crews via the MCP standard rather than the raw REST surface.
+The data models the API reads and writes.
 
-- **Human URL:** [https://github.com/crewAIInc/enterprise-mcp-server](https://github.com/crewAIInc/enterprise-mcp-server)
+- [CrewAI AMP Kickoff](https://apis.io/schemas/crewai-cloud/crewai-cloud-kickoff/)
+- [CrewAI AMP Resume Request](https://apis.io/schemas/crewai-cloud/crewai-cloud-resume/)
+- [CrewAI AMP Kickoff Status](https://apis.io/schemas/crewai-cloud/crewai-cloud-status/)
 
-#### Tags
+#### JSON Structure (1)
 
-- MCP
-- Model Context Protocol
-- Agents
-- Deployment
+Data models expressed in JSON Structure.
 
-#### Properties
+- [Crewai Cloud Kickoff Structure](https://apis.io/json-structure/crewai-cloud/crewai-cloud-kickoff-structure/)
 
-- [Git Hub](https://github.com/crewAIInc/enterprise-mcp-server)
-- [Documentation](https://docs.crewai.com/en/enterprise/guides/custom-mcp-server)
-- [Postman Collection](collections/crewai-amp-rest-api.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/crewai-amp-rest-api.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### JSON-LD (1)
 
-## Common Properties
+Linked-data contexts for the provider's vocabulary.
 
-- [Arazzo Workflows](arazzo/) — [Arazzo Specification](https://spec.openapis.org/arazzo/latest.html)
+- [Crewai Cloud Context](https://apis.io/jsonld/crewai-cloud/crewai-cloud-context/)
+
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [CrewAI Cloud Vocabulary](https://apis.io/vocabularies/crewai-cloud/crewai-cloud-vocabulary/)
+
+#### Examples (3)
+
+Example requests and responses.
+
+- [Crewai Cloud Kickoff Example](https://apis.io/examples/crewai-cloud/crewai-cloud-kickoff-example/)
+- [Crewai Cloud Resume Example](https://apis.io/examples/crewai-cloud/crewai-cloud-resume-example/)
+- [Crewai Cloud Status Example](https://apis.io/examples/crewai-cloud/crewai-cloud-status-example/)
+
+#### Collections (6)
+
+Postman and Open Collection request collections.
+
+- [CrewAI AMP REST API](https://apis.io/collections/crewai-cloud/open-crewai-amp-rest-api/)
+- [CrewAI AMP REST Inputs API](https://apis.io/collections/crewai-cloud/open-crewai-cloud-inputs-api/)
+- [CrewAI AMP REST Inputs Kickoff API](https://apis.io/collections/crewai-cloud/open-crewai-cloud-kickoff-api/)
+- [CrewAI AMP REST Inputs Resume API](https://apis.io/collections/crewai-cloud/open-crewai-cloud-resume-api/)
+- [CrewAI AMP REST Inputs Status API](https://apis.io/collections/crewai-cloud/open-crewai-cloud-status-api/)
+- [CrewAI AMP REST API](https://apis.io/collections/crewai-cloud/postman-crewai-amp-rest-api/)
+
+#### Governance rules (3)
+
+Spectral rulesets for the provider's contracts.
+
+- [CrewAI Cloud — crewai amp rest api rules](https://apis.io/rules/crewai-cloud/crewai-amp-rest-api-rules/)
+- [CrewAI Cloud — asyncapi rules](https://apis.io/rules/crewai-cloud/crewai-cloud-asyncapi-spectral-rules/)
+- [CrewAI Cloud — jsonschema rules](https://apis.io/rules/crewai-cloud/crewai-cloud-jsonschema-spectral-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Crewai Cloud Authentication](https://apis.io/security/crewai-cloud/crewai-cloud-authentication/)
+- [Crewai Cloud Domain Security](https://apis.io/security/crewai-cloud/crewai-cloud-domain-security/)
+- [Crewai Cloud Vulnerability Disclosure](https://apis.io/security/crewai-cloud/crewai-cloud-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Crewai Cloud Plans Pricing](https://apis.io/plans/crewai-cloud/crewai-cloud-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Crewai Cloud Rate Limits](https://apis.io/rate-limits/crewai-cloud/crewai-cloud-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Crewai Cloud Finops](https://apis.io/finops/crewai-cloud/crewai-cloud-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://www.crewai.com)
-- [Portal](https://www.crewai.com/enterprise)
-- [Sign Up](https://app.crewai.com)
-- [Console](https://app.crewai.com)
 - [Documentation](https://docs.crewai.com/en/enterprise/introduction)
-- [Documentation](https://docs.crewai.com/)
-- [L L Ms Txt](https://docs.crewai.com/llms.txt)
-- [Getting Started](https://docs.crewai.com/en/enterprise/guides/deploy-to-amp)
-- [API Reference](https://docs.crewai.com/en/api-reference/introduction)
-- [Authentication](https://docs.crewai.com/en/api-reference/introduction)
-- [Webhooks](https://docs.crewai.com/en/enterprise/features/webhook-streaming)
-- [SDK](https://github.com/crewAIInc/crewai)
-- [SDK](https://github.com/crewAIInc/crewai-tools)
-- [C L I](https://docs.crewai.com/en/concepts/cli)
-- [Tool](https://docs.crewai.com/en/enterprise/features/crew-studio)
-- [Tool](https://github.com/crewAIInc/enterprise-mcp-server)
-- [GitHub Organization](https://github.com/crewAIInc)
-- [LinkedIn](https://www.linkedin.com/company/crewai-inc)
-- [Blog](https://blog.crewai.com)
-- [Forum](https://community.crewai.com)
-- [Status Page](https://status.crewai.com)
-- [Terms of Service](https://www.crewai.com/legal/terms-of-use)
-- [Privacy Policy](https://www.crewai.com/legal/privacy-notice)
-- [Trust Center](https://www.crewai.com/trust)
-- [Changelog](https://docs.crewai.com/en/release-notes)
-- [Plans](https://www.crewai.com/pricing)
+- [Getting started](https://docs.crewai.com/en/enterprise/guides/deploy-to-amp)
+- [API reference](https://docs.crewai.com/en/api-reference/introduction)
 - [Pricing](https://www.crewai.com/pricing)
-- [Security And Compliance](https://www.crewai.com/trust)
-- [Integrations](https://docs.crewai.com/en/enterprise/integrations)
-- [Documentation](https://docs.crewai.com/en/enterprise/features/sso)
-- [Documentation](https://docs.crewai.com/en/enterprise/features/rbac)
-- [Documentation](https://docs.crewai.com/en/enterprise/features/secrets-manager/overview)
-- [Documentation](https://docs.crewai.com/en/enterprise/features/secrets-manager/aws)
-- [Documentation](https://docs.crewai.com/en/enterprise/features/secrets-manager/aws-workload-identity)
-- [Documentation](https://docs.crewai.com/en/enterprise/features/secrets-manager/azure)
-- [Documentation](https://docs.crewai.com/en/enterprise/features/secrets-manager/azure-workload-identity)
-- [Documentation](https://docs.crewai.com/en/enterprise/features/secrets-manager/gcp)
-- [Documentation](https://docs.crewai.com/en/enterprise/features/secrets-manager/gcp-workload-identity)
-- [Documentation](https://docs.crewai.com/en/enterprise/features/traces)
-- [Documentation](https://docs.crewai.com/en/enterprise/features/pii-trace-redactions)
-- [Documentation](https://docs.crewai.com/en/enterprise/features/hallucination-guardrail)
-- [Documentation](https://docs.crewai.com/en/enterprise/guides/capture_telemetry_logs)
-- [Documentation](https://docs.crewai.com/en/enterprise/features/automations)
-- [Documentation](https://docs.crewai.com/en/enterprise/guides/automation-triggers)
-- [Documentation](https://docs.crewai.com/en/enterprise/features/flow-hitl-management)
-- [Documentation](https://docs.crewai.com/en/enterprise/features/agent-repositories)
-- [Documentation](https://docs.crewai.com/en/enterprise/features/marketplace)
-- [Documentation](https://docs.crewai.com/en/enterprise/features/a2a)
-- [Documentation](https://docs.crewai.com/en/enterprise/guides/tool-repository)
-- [Documentation](https://docs.crewai.com/en/enterprise/guides/custom-mcp-server)
-- [Documentation](https://docs.crewai.com/en/concepts/production-architecture)
-- [Documentation](https://docs.crewai.com/en/enterprise/resources/frequently-asked-questions)
-- [Plans](plans/crewai-cloud-plans-pricing.yml)
-- [Rate Limits](rate-limits/crewai-cloud-rate-limits.yml)
-- [Fin Ops](finops/crewai-cloud-finops.yml)
-- [Features](undefined)
+- [Changelog](https://docs.crewai.com/en/release-notes)
+- [Blog](https://blog.crewai.com)
+- [Trust centre](https://www.crewai.com/trust)
+- [Terms of service](https://www.crewai.com/legal/terms-of-use)
+- [Privacy policy](https://www.crewai.com/legal/privacy-notice)
+- [GitHub](https://github.com/crewAIInc)
+- [Status](https://status.crewai.com)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** info@apievangelist.com
-**URL:** https://apievangelist.com
+**Kin Score 40.7** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.7 |
+| Contract quality | 56.0 |
+| Contract governance | 13.6 |
+| Operational transparency | 28.9 |
+| Developer ergonomics | 42.4 |
+| Access clarity | 28.9 |
+
+**Agent readiness 35.0** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | negotiable (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | documented (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | paginated |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 22.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/crewai-cloud/](https://apis.io/providers/crewai-cloud/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for CrewAI Cloud: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/crewai-cloud/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
